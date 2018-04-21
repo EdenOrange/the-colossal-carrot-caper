@@ -11,7 +11,7 @@ public class RhythmTester : MonoBehaviour {
     float lastHit = 0.2f;
     float latency = 0.3f;
     float reset;
-    float scoreMod = 0;
+
 
     int score = 0;
     
@@ -94,23 +94,23 @@ public class RhythmTester : MonoBehaviour {
             Debug.Log("hit");
             hitterMat.SetColor("_Color", Color.blue);
             triggered = true;
-            scoreMod += 0.5f;
+            ManagerGlobalVars.Energy += 0.5f;
             TimeSinceHit = 0;
         }
         else if (playerHit){
             hitterMat.SetColor("_Color", Color.red);
             triggered = false;
-            scoreMod -= 0.5f;
+            ManagerGlobalVars.Energy -= 0.5f;
         }
-        scoreMod = Mathf.Clamp(scoreMod, 0, 10);
-        score += (int)(100 * scoreMod * Time.deltaTime) ;
-        scoreMod -= 0.3f * Time.deltaTime;
-        if (scoreMod < 0.01) {
-            scoreMod = 0;
+        ManagerGlobalVars.Energy = Mathf.Clamp(ManagerGlobalVars.Energy, 0, 10);
+        score += (int)(100 * ManagerGlobalVars.Energy * Time.deltaTime) ;
+        ManagerGlobalVars.Energy -= 0.3f * Time.deltaTime;
+        if (ManagerGlobalVars.Energy < 0.01) {
+            ManagerGlobalVars.Energy = 0;
         }
-        scoreDisplay.text = "Score: " + score + "\nEnergy: " +scoreMod;
+        scoreDisplay.text = "Score: " + score + "\nEnergy: " + ManagerGlobalVars.Energy;
 
-        ScoreBar.fillAmount = scoreMod/10;
+        ScoreBar.fillAmount = ManagerGlobalVars.Energy/10;
 
         ManagerGlobalVars.TimeSinceHit = TimeSinceHit;
     }
