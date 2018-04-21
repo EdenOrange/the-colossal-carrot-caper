@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RhythmTester : MonoBehaviour {
@@ -66,52 +67,67 @@ public class RhythmTester : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        TimeSinceHit += Time.deltaTime;
-        bool playerHit = Input.GetKeyDown(KeyCode.W);
-
-        Timer += Time.deltaTime;
-        Color finalColor = Color.yellow * (1 - (Timer - nums[count - 1] / 1));
-
-        timerMat.SetColor("_EmissionColor", finalColor);
-        if (Timer > nextHit) {
-            count++;
-            nextHit = nums[count];
-            lastHit = nums[count - 1];
-            reset = lastHit + (nextHit - lastHit) / 2;
-
-            if(!triggered)
-                hitterMat.SetColor("_Color", Color.red);
-
-            triggered = false;
-        }
-
-        if (Timer > reset) {
-            triggered = false;
-        }
-        
-        if (playerHit && Mathf.Abs(lastHit -Timer ) < latency && !triggered)
+        if (count + 1 < nums.Length)
         {
-            Debug.Log("hit");
-            hitterMat.SetColor("_Color", Color.blue);
-            triggered = true;
-            ManagerGlobalVars.Energy += 0.5f;
-            TimeSinceHit = 0;
-        }
-        else if (playerHit){
-            hitterMat.SetColor("_Color", Color.red);
-            triggered = false;
-            ManagerGlobalVars.Energy -= 0.5f;
-        }
-        ManagerGlobalVars.Energy = Mathf.Clamp(ManagerGlobalVars.Energy, 0, 10);
-        score += (int)(100 * ManagerGlobalVars.Energy * Time.deltaTime) ;
-        ManagerGlobalVars.Energy -= 0.3f * Time.deltaTime;
-        if (ManagerGlobalVars.Energy < 0.01) {
-            ManagerGlobalVars.Energy = 0;
-        }
-        scoreDisplay.text = "Score: " + score + "\nEnergy: " + ManagerGlobalVars.Energy;
+            TimeSinceHit += Time.deltaTime;
+            bool playerHit = Input.GetKeyDown(KeyCode.W);
 
-        ScoreBar.fillAmount = ManagerGlobalVars.Energy/10;
+            Timer += Time.deltaTime;
+            Color finalColor = Color.yellow * (1 - (Timer - nums[count - 1] / 1));
 
-        ManagerGlobalVars.TimeSinceHit = TimeSinceHit;
+            timerMat.SetColor("_EmissionColor", finalColor);
+            if (Timer > nextHit)
+            {
+                count++;
+                nextHit = nums[count];
+                lastHit = nums[count - 1];
+                reset = lastHit + (nextHit - lastHit) / 2;
+
+                if (!triggered)
+                    hitterMat.SetColor("_Color", Color.red);
+
+                triggered = false;
+            }
+
+            if (Timer > reset)
+            {
+                triggered = false;
+            }
+
+            if (playerHit && Mathf.Abs(lastHit - Timer) < latency && !triggered)
+            {
+                Debug.Log("hit");
+                hitterMat.SetColor("_Color", Color.blue);
+                triggered = true;
+                ManagerGlobalVars.Energy += 0.5f;
+                TimeSinceHit = 0;
+            }
+            else if (playerHit)
+            {
+                hitterMat.SetColor("_Color", Color.red);
+                triggered = false;
+                ManagerGlobalVars.Energy -= 0.5f;
+            }
+            ManagerGlobalVars.Energy = Mathf.Clamp(ManagerGlobalVars.Energy, 0, 10);
+            score += (int)(100 * ManagerGlobalVars.Energy * Time.deltaTime);
+            ManagerGlobalVars.Energy -= 0.3f * Time.deltaTime;
+            if (ManagerGlobalVars.Energy < 0.01)
+            {
+                ManagerGlobalVars.Energy = 0;
+            }
+            scoreDisplay.text = "Score: " + score + "\nEnergy: " + ManagerGlobalVars.Energy;
+
+            ScoreBar.fillAmount = ManagerGlobalVars.Energy / 10;
+
+            ManagerGlobalVars.TimeSinceHit = TimeSinceHit;
+
+
+        }
+        else {
+            if (Time.time > 110)
+            {
+                SceneManager.LoadScene("Town");
+            }
+        }
     }
 }
