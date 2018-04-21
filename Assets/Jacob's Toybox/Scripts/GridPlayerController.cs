@@ -21,8 +21,8 @@ public class GridPlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
-
-        bool moveable = ((timer + 0.1) % 0.5) < 0.3f;
+        float currentTime = ((timer + 0.1f) % 0.5f);
+        bool moveable = currentTime < 0.22f  || currentTime > 0.27f;
 
 
         if (moveable)
@@ -37,28 +37,34 @@ public class GridPlayerController : MonoBehaviour {
         bool a = Input.GetKeyDown(KeyCode.A);
         bool s = Input.GetKeyDown(KeyCode.S);
         bool d = Input.GetKeyDown(KeyCode.D);
-        if (w && moveable) {
-            Vector3 target = new Vector3(0, 0, 1) + gameObject.transform.position;
-            gameObject.transform.position = target;
 
+        RaycastHit hit;
+        Vector3 target = new Vector3(0,0,0);
+
+        if (w && moveable) {
+            target = new Vector3(0, 0, 1) + target;
         }
         if (a && moveable)
         {
-            Vector3 target = new Vector3(-1, 0, 0) + gameObject.transform.position;
-            gameObject.transform.position = target;
-
+            target = new Vector3(-1, 0, 0) + target;
         }
         if (s && moveable)
         {
-            Vector3 target = new Vector3(0, 0, -1) + gameObject.transform.position;
-            gameObject.transform.position = target;
-
+            target = new Vector3(0, 0, -1) + target;
         }
         if (d && moveable)
         {
-            Vector3 target = new Vector3(1, 0, 0) + gameObject.transform.position;
-            gameObject.transform.position = target;
+            target = new Vector3(1, 0, 0) + target;          
 
         }
+        
+
+        // Does the ray intersect any objects excluding the player layer
+        if (!Physics.Raycast(transform.position, transform.TransformDirection(target), out hit, 1))
+        {
+            target += gameObject.transform.position;
+            gameObject.transform.position = target;
+        }
+
     }
 }
