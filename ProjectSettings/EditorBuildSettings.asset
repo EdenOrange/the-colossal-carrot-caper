@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Town/House.unity
     guid: d703cd5cdf55a77459de8c0bc14ef86f
+  - enabled: 1
+    path: Assets/Scenes/Jacob's Playground.unity
+    guid: 5722e7564225872438c534addf3130ec

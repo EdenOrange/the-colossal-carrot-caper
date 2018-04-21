@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class HouseEnter : MonoBehaviour {
 
+	public string sceneToLoad;
+
 	private bool interactable;
 
 	void Start()
@@ -40,6 +42,6 @@ public class HouseEnter : MonoBehaviour {
 		AudioManager.Instance.PlayFadeOut(AudioManager.Instance.LastBGM);
 		UIController.Instance.FadeOut(delay);
 		yield return new WaitForSeconds(delay);
-		SceneManager.LoadScene("House");
+		SceneManager.LoadScene(sceneToLoad);
 	}
 }
