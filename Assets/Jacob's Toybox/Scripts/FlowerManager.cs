@@ -11,6 +11,9 @@ public class FlowerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        Vector3 tar = new Vector3(1,-1,1);
+        tar = tar * (ManagerGlobalVars.Score + 1) / 25000 * 10;
+        gameObject.transform.localScale = tar;
+        
 	}
 }
