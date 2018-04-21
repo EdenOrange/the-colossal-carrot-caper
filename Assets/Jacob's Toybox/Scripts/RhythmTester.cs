@@ -8,14 +8,17 @@ public class RhythmTester : MonoBehaviour {
     float TimeDelay =  1f * 65/60;
     float nextHit = 0;
     float lastHit = 0.2f;
+    float latency = 0.3f;
+    float reset;
+
     bool hasHit = false;
-    public GameObject TimerObj;
-    public GameObject HitterObj;
+    GameObject TimerObj;
+    GameObject HitterObj;
     Renderer timerRenderer;
     Renderer hitterRenderer;
     Material timerMat;
     Material hitterMat;
-    public GameObject thing;
+    GameObject thing;
     int count;
     float[] nums;
     bool triggered;
@@ -29,6 +32,7 @@ public class RhythmTester : MonoBehaviour {
         nums = Array.ConvertAll(f.Split(','), float.Parse);
         foreach (float i in nums)
         {
+            // x = i * speed + (speed * latency)
             Instantiate(thing,new Vector3(i * 5 + 1.5f,4,0),Quaternion.identity);
         }
         count = 1;
@@ -57,6 +61,7 @@ public class RhythmTester : MonoBehaviour {
             count++;
             nextHit = nums[count];
             lastHit = nums[count - 1];
+            reset = lastHit + (nextHit - lastHit) / 2;
 
             if(!triggered)
                 hitterMat.SetColor("_Color", Color.red);
@@ -64,8 +69,11 @@ public class RhythmTester : MonoBehaviour {
             triggered = false;
         }
 
+        if (Timer > reset) {
+            triggered = false;
+        }
         
-        if (playerHit && Mathf.Abs(lastHit -Timer ) < 0.3f )
+        if (playerHit && Mathf.Abs(lastHit -Timer ) < latency)
         {
             Debug.Log("hit");
             hitterMat.SetColor("_Color", Color.blue);
