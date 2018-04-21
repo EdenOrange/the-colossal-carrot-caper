@@ -7,11 +7,13 @@ public class AudioManager : MonoBehaviour {
 
 	public static AudioManager Instance { get; private set; }
 
+	public AudioClip bgmMainMenu;
 	public AudioClip bgmTown;
 	public AudioClip bgmHouse;
 	public AudioClip sfxDoorOpen;
 	public AudioClip sfxDoorClose;
 	
+	private AudioSource audioMainMenu;
 	private AudioSource audioTown;
 	private AudioSource audioHouse;
 	private AudioSource audioDoorOpen;
@@ -19,6 +21,7 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioSource LastBGM { get; private set; }
 
+	private float defaultGlobalVolume = 0.7f;
 	private float fadeTime = 1f;
 
 	void Awake()
@@ -33,10 +36,13 @@ public class AudioManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-		audioTown = AddAudio(bgmTown, true, false, 0.5f);
-		audioHouse = AddAudio(bgmHouse, true, false, 0.5f);
-		audioDoorOpen = AddAudio(sfxDoorOpen, false, false, 0.5f);
-		audioDoorClose = AddAudio(sfxDoorClose, false, false, 0.5f);
+		AudioListener.volume = defaultGlobalVolume;
+
+		audioMainMenu = AddAudio(bgmMainMenu, true, false, 1f);
+		audioTown = AddAudio(bgmTown, true, false, 1f);
+		audioHouse = AddAudio(bgmHouse, true, false, 1f);
+		audioDoorOpen = AddAudio(sfxDoorOpen, false, false, 1f);
+		audioDoorClose = AddAudio(sfxDoorClose, false, false, 1f);
 	}
 
 	void OnEnable()
@@ -54,6 +60,7 @@ public class AudioManager : MonoBehaviour {
 		StopBGM();
 		switch (scene.name)
 		{
+			case "Main Menu": PlayBGMMainMenu(); break;
 			case "Town": PlayBGMTown(); break;
 			case "House": PlayBGMHouse(); break;
 		}
@@ -67,6 +74,12 @@ public class AudioManager : MonoBehaviour {
 		newAudio.playOnAwake = playAwake;
 		newAudio.volume = volume;
 		return newAudio;
+	}
+
+	public void PlayBGMMainMenu()
+	{
+		PlayFadeIn(audioMainMenu);
+		LastBGM = audioMainMenu;
 	}
 
 	public void PlayBGMTown()
@@ -112,7 +125,7 @@ public class AudioManager : MonoBehaviour {
 	IEnumerator FadeIn(AudioSource audioSource)
 	{
 		float volumeEnd = audioSource.volume;	
-		audioSource.volume = 0f;	
+		audioSource.volume = 0f;
 		
 		audioSource.Play();
 		while (audioSource.volume < volumeEnd)

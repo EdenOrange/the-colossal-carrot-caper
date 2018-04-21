@@ -14,7 +14,7 @@ public class HouseExit : MonoBehaviour {
 	{
 		AudioManager.Instance.PlaySfxDoorClose();
 		AudioManager.Instance.PlayFadeOut(AudioManager.Instance.LastBGM);
-		UIController.Instance.FadeOut(delay);
+		UIFaderController.Instance.FadeOut(delay);
 		yield return new WaitForSeconds(delay);
 		SceneManager.LoadScene("Town");
 	}

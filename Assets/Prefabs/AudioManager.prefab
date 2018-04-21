@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1015c26a37d47e49a6780ae4c1296ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmMainMenu: {fileID: 8300000, guid: 5992bc772fe40044b8919876bb02f1f1, type: 3}
   bgmTown: {fileID: 8300000, guid: 605b4196229a4a5419819ed8e841b8d7, type: 3}
   bgmHouse: {fileID: 8300000, guid: d08200d1d6d155b44a7dffa992e29902, type: 3}
   sfxDoorOpen: {fileID: 8300000, guid: a54ec753106848e44871a90e5511db9f, type: 3}
