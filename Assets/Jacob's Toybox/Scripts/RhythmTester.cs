@@ -5,6 +5,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public class Beat {
+    public float time;
+    public char key;
+    public Beat(float time, char key) {
+        this.time = time;
+        this.key = key;
+    }
+
+}
+
+
 public class RhythmTester : MonoBehaviour {
     float Timer = 0f;
     float TimeDelay =  1f * 65/60;
@@ -27,12 +38,14 @@ public class RhythmTester : MonoBehaviour {
     Material timerMat;
     Material hitterMat;
     GameObject thing;
-
-
+    GameObject thingl;
+    string[] keys;
+    string nextKey;
+    string lastKey;
     float TimeSinceHit = 1;
 
-    int count;
-    float[] nums;
+    int count = 1;
+    float[] nums;// = new List<float>();
     bool triggered;
 
     Text scoreDisplay;
@@ -42,49 +55,48 @@ public class RhythmTester : MonoBehaviour {
         song = gameObject.GetComponent<AudioSource>();
         scoreDisplay = GameObject.Find("ScoreDisplay").GetComponent<Text>();
         ScoreBar = GameObject.Find("ScoreBar").GetComponent<Image>();
-        GameObject thing = GameObject.Find("RhythmBlock");
-        string f = "0, 0.5446, 1.0087, 1.4226, 2.1681, 2.8639, 3.3113, 4.2058, 4.8188, 5.3158, 6.1441, 6.9063, 7.3702, 8.1489, 8.8610, 9.3083, 10.1035, 10.8823, 11.2963, 12.0918, 12.9198, 13.3673, 14.2120, 14.9741, 15.4214, 16.1505, 16.8959, 17.3763, 18.2214, 18.9170, 19.3809, 20.1926, 20.6400, 21.1369, 21.7003, 22.2138, 22.7273, 23.1912, 23.7213, 24.2367, 24.7505, 25.2306, 25.7111, 26.2081, 26.6719, 27.2021, 27.7157, 28.2126, 28.7096, 29.2895, 29.7368, 30.2503, 30.7473, 31.2112, 31.7248, 32.2715, 32.7188, 33.2489, 33.7294, 34.2429, 34.7234, 35.1873, 35.7174, 36.2475, 36.7114, 37.2084, 37.6891, 38.1858, 38.6663, 39.2131, 39.7104, 40.1904, 40.6377, 41.1182, 41.6152, 42.1619, 42.6755, 43.1725, 43.6418, 44.2048, 44.7018, 45.1659, 45.6627, 46.1929, 46.7229, 47.1702, 47.6343, 48.1808, 48.6944, 49.1748, 49.7549";
-
-        nums = Array.ConvertAll(f.Split(','), float.Parse);
-        foreach (float i in nums)
+        thing = GameObject.Find("RhythmBlock");
+        thingl = GameObject.Find("RhythmBlockR");
+        string times = "0, 0.4805, 1.0106, 1.3420, 2.2366, 3.0483, 3.4461, 4.3240, 5.0032, 5.4339, 6.1794, 6.9084, 7.3722, 8.1177, 8.8798, 9.3934, 10.1554, 10.9176, 11.3982, 12.1821, 12.9939, 13.3916, 14.1701, 15.0316, 15.4790, 16.1416, 16.7049, 17.1853, 17.6657, 18.2290, 18.7591, 19.2395, 19.7531, 20.2501, 20.6974, 21.1922, 21.7224, 22.2360, 22.7332, 23.2300, 23.7270, 24.2240, 24.7376, 25.2347, 25.7647, 26.2451, 26.7256, 27.2889, 27.8024, 28.2829, 28.7468, 29.2441, 29.7415, 30.2220, 30.7521, 31.2326, 31.7628, 32.2762, 32.7414, 33.2881, 33.7687, 34.2490, 34.7460, 35.2595, 35.7731, 36.2701, 36.7672, 37.2973, 37.7611, 38.2922, 38.7396, 39.1987, 39.7352";
+        string keyString = "0, L,  R, R, L, R, R, L, R, R, L, R, R, L, R, R, L, R, R, L, R, R, L, R, R, L, L, R, R, L, L, R, R, L, L, R, R, L, L, R, R, L, L, L, L, R, R, R, R, L, L, L, L, R, R, R, R, L, R, L, R, L, R, L, R, L, L, R, R, L, R, L, R";
+        nums = Array.ConvertAll(times.Split(','), float.Parse);
+        keys = keyString.Split(',');
+        for (int i = 0; i < nums.Length; i++)
         {
-            // x = i * speed + (speed * latency / 2)
-            Instantiate(thing,new Vector3(i * 5 + .75f,4,0),Quaternion.identity);
+            if (keys[i].Trim().Equals("R"))
+                Instantiate(thing, new Vector3(nums[i] * 5 + .75f, 3.5f, 0), Quaternion.identity);
+            else
+                Instantiate(thingl, new Vector3(nums[i] * 5 + .75f, 4.5f, 0), Quaternion.identity);
+
+
         }
+
         count = 1;
         nextHit = nums[count];
-
-        TimerObj = GameObject.Find("Timer");
-        HitterObj = GameObject.Find("Hitter");
-        timerRenderer = TimerObj.GetComponent<Renderer>();
-        hitterRenderer = HitterObj.GetComponent<Renderer>();
-
-        timerMat = timerRenderer.material;
-        hitterMat = hitterRenderer.material;
-        hitterMat.EnableKeyword("_EMISSION");
         triggered = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        //Debug.Log(count);
+        //Debug.Log(nums);
         if (count + 1 < nums.Length)
         {
             TimeSinceHit += Time.deltaTime;
-            bool playerHit = Input.GetKeyDown(KeyCode.W);
-
+            bool leftHit = Input.GetKeyDown(KeyCode.A)|| Input.GetKeyDown(KeyCode.LeftArrow);
+            bool rightHit = Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
             Timer += Time.deltaTime;
-            Color finalColor = Color.yellow * (1 - (Timer - nums[count - 1] / 1));
 
-            timerMat.SetColor("_EmissionColor", finalColor);
             if (Timer > nextHit)
             {
                 count++;
                 nextHit = nums[count];
                 lastHit = nums[count - 1];
-                reset = lastHit + (nextHit - lastHit) / 2;
 
-                if (!triggered)
-                    hitterMat.SetColor("_Color", Color.red);
+
+                nextKey = keys[count].Trim();
+                lastKey = keys[count-1].Trim();
+                reset = lastHit + (nextHit - lastHit) / 2;
 
                 triggered = false;
             }
@@ -94,17 +106,14 @@ public class RhythmTester : MonoBehaviour {
                 triggered = false;
             }
 
-            if (playerHit && Mathf.Abs(lastHit - Timer) < latency && !triggered)
+            if ((leftHit && lastKey.Equals("L") || rightHit && lastKey.Equals("R")) && Mathf.Abs(lastHit - Timer) < latency && !triggered)
             {
-                Debug.Log("hit");
-                hitterMat.SetColor("_Color", Color.blue);
                 triggered = true;
                 ManagerGlobalVars.Energy += 0.5f;
                 TimeSinceHit = 0;
             }
-            else if (playerHit)
+            else if (leftHit || rightHit)
             {
-                hitterMat.SetColor("_Color", Color.red);
                 triggered = false;
                 ManagerGlobalVars.Energy -= 0.5f;
             }
@@ -128,7 +137,7 @@ public class RhythmTester : MonoBehaviour {
             song.volume -= 0.01f;
         }
         else {
-            if (Time.time > 60)
+            if (Time.time > 50)
             {
                 SceneManager.LoadScene("Town");
             }

@@ -11,11 +11,11 @@ public class BGManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Time.time > 52)
+        if (Time.time > 42)
         {
             Material m = gameObject.GetComponent<Renderer>().material;
             Color c = m.color;
-            m.SetColor("_Color", c * ((58 - Time.time) / 8));
+            m.SetColor("_Color", c * ((48 - Time.time) / 8));
         }
     }
 }
