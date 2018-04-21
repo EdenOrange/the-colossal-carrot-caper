@@ -24,8 +24,7 @@ public class HouseEnter : MonoBehaviour {
 		{
 			collider.GetComponent<PlayerController>().canAct = false;
 			GameManager.Instance.LastTownPlayerPosition = collider.transform.position;
-			Debug.Log("HouseEnter");
-			SceneManager.LoadScene("House");
+			StartCoroutine(EnterWithDelay(1f));
 		}
 	}
 
@@ -33,5 +32,12 @@ public class HouseEnter : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(delay);
 		interactable = true;
+	}
+
+	IEnumerator EnterWithDelay(float delay)
+	{
+		UIController.Instance.FadeOut(delay);
+		yield return new WaitForSeconds(delay);
+		SceneManager.LoadScene("House");
 	}
 }
