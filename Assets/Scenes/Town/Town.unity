@@ -124,6 +124,61 @@ GameObject:
   m_PrefabParentObject: {fileID: 1724287228756704, guid: 324826bbecd244a44be6d5102d08053e,
     type: 2}
   m_PrefabInternal: {fileID: 1131726435}
+--- !u!1001 &409404186
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743069829162362, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724287228756704, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 23883443249108456, guid: 324826bbecd244a44be6d5102d08053e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 097c29fe38c73a945885d00ea0c6e6ab, type: 2}
+    - target: {fileID: 1685326318356984, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+      propertyPath: m_Name
+      value: EnemyMesh
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 324826bbecd244a44be6d5102d08053e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &484749191 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4047462216830200, guid: b891c8d13048f704eb0d7da1d5872c13,

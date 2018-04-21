@@ -25,7 +25,7 @@ public class HouseEnter : MonoBehaviour {
 		if (collider.tag == "Player")
 		{
 			collider.GetComponent<PlayerController>().canAct = false;
-			GameManager.Instance.LastTownPlayerPosition = collider.transform.position;
+			// GameManager.Instance.LastTownPlayerPosition = collider.transform.position;
 			StartCoroutine(EnterWithDelay(1f));
 		}
 	}

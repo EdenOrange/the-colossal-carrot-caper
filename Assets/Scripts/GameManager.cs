@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager Instance { get; private set; }
-
-	/* Stores the player's position when moving out from town */
-	public Vector3 LastTownPlayerPosition { get; set; }
 
 	void Awake()
 	{
@@ -22,9 +20,15 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-	void Start()
+	public void Lose()
 	{
-		/* Set initial player position */
-		LastTownPlayerPosition = new Vector3(0f, 1f, 0f);
+		UIFaderController.Instance.FadeOut(1f);
+		StartCoroutine(RestartLevelWithDelay(1f));
+	}
+
+	IEnumerator RestartLevelWithDelay(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

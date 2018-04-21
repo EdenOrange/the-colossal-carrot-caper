@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 		playerRb = GetComponent<Rigidbody>();
 		canAct = true;
 
-		transform.position = GameManager.Instance.LastTownPlayerPosition;
+		// transform.position = GameManager.Instance.LastTownPlayerPosition;
 	}
 
 	void Update()
