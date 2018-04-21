@@ -25,7 +25,6 @@ public class RhythmTester : MonoBehaviour {
     float reset;
     AudioSource song;
 
-    int score = 0;
     
 
 
@@ -118,13 +117,13 @@ public class RhythmTester : MonoBehaviour {
                 ManagerGlobalVars.Energy -= 0.5f;
             }
             ManagerGlobalVars.Energy = Mathf.Clamp(ManagerGlobalVars.Energy, 0, 10);
-            score += (int)(100 * ManagerGlobalVars.Energy * Time.deltaTime);
+            ManagerGlobalVars.Score += (int)(100 * ManagerGlobalVars.Energy * Time.deltaTime);
             ManagerGlobalVars.Energy -= 0.3f * Time.deltaTime;
             if (ManagerGlobalVars.Energy < 0.01)
             {
                 ManagerGlobalVars.Energy = 0;
             }
-            scoreDisplay.text = "Score: " + score + "\nEnergy: " + ManagerGlobalVars.Energy;
+            scoreDisplay.text = "Score: " + ManagerGlobalVars.Score + "\nEnergy: " + ManagerGlobalVars.Energy;
 
             ScoreBar.fillAmount = ManagerGlobalVars.Energy / 10;
 
@@ -137,7 +136,7 @@ public class RhythmTester : MonoBehaviour {
             song.volume -= 0.01f;
         }
         else {
-            if (Time.time > 50)
+            if (Time.timeSinceLevelLoad > 50)
             {
                 SceneManager.LoadScene("Town");
             }

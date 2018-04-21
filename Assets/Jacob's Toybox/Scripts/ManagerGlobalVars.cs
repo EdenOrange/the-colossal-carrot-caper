@@ -5,5 +5,5 @@ using UnityEngine;
 public class ManagerGlobalVars :MonoBehaviour {
     public static float TimeSinceHit = 1;
     public static float Energy = 0;
-
+    public static int Score = 0;
 }
