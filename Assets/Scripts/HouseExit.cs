@@ -12,6 +12,8 @@ public class HouseExit : MonoBehaviour {
 
 	IEnumerator DelayedExitToTown(float delay)
 	{
+		AudioManager.Instance.PlaySfxDoorClose();
+		AudioManager.Instance.PlayFadeOut(AudioManager.Instance.LastBGM);
 		UIController.Instance.FadeOut(delay);
 		yield return new WaitForSeconds(delay);
 		SceneManager.LoadScene("Town");

@@ -501,6 +501,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114427186056093620, guid: a527c3abe147c224d933b4b956b3a92f,
+        type: 2}
+      propertyPath: sfxDoorClose
+      value: 
+      objectReference: {fileID: 8300000, guid: fba78e6441acf58409bc90c538cd3ad9, type: 3}
+    - target: {fileID: 114427186056093620, guid: a527c3abe147c224d933b4b956b3a92f,
+        type: 2}
+      propertyPath: bgmTown
+      value: 
+      objectReference: {fileID: 8300000, guid: 605b4196229a4a5419819ed8e841b8d7, type: 3}
+    - target: {fileID: 114427186056093620, guid: a527c3abe147c224d933b4b956b3a92f,
+        type: 2}
+      propertyPath: bgmHouse
+      value: 
+      objectReference: {fileID: 8300000, guid: d08200d1d6d155b44a7dffa992e29902, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a527c3abe147c224d933b4b956b3a92f, type: 2}
   m_IsPrefabParent: 0

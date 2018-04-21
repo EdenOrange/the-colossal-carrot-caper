@@ -1,13 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour {
 
 	public static AudioManager Instance { get; private set; }
 
+	public AudioClip bgmTown;
+	public AudioClip bgmHouse;
 	public AudioClip sfxDoorOpen;
+	public AudioClip sfxDoorClose;
+	
+	private AudioSource audioTown;
+	private AudioSource audioHouse;
 	private AudioSource audioDoorOpen;
+	private AudioSource audioDoorClose;
+
+	public AudioSource LastBGM { get; private set; }
+
+	private float fadeTime = 1f;
 
 	void Awake()
 	{
@@ -20,11 +32,31 @@ public class AudioManager : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
+		audioTown = AddAudio(bgmTown, true, false, 0.5f);
+		audioHouse = AddAudio(bgmHouse, true, false, 0.5f);
+		audioDoorOpen = AddAudio(sfxDoorOpen, false, false, 0.5f);
+		audioDoorClose = AddAudio(sfxDoorClose, false, false, 0.5f);
 	}
 
-	void Start()
+	void OnEnable()
 	{
-		audioDoorOpen = AddAudio(sfxDoorOpen, false, false, 0.5f);
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		StopBGM();
+		switch (scene.name)
+		{
+			case "Town": PlayBGMTown(); break;
+			case "House": PlayBGMHouse(); break;
+		}
 	}
 
 	AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume)
@@ -37,8 +69,70 @@ public class AudioManager : MonoBehaviour {
 		return newAudio;
 	}
 
-	public void PlayDoorOpen()
+	public void PlayBGMTown()
+	{
+		PlayFadeIn(audioTown);
+		LastBGM = audioTown;
+	}
+
+	public void PlayBGMHouse()
+	{
+		PlayFadeIn(audioHouse);
+		LastBGM = audioHouse;
+	}
+
+	public void StopBGM()
+	{
+		if (LastBGM != null)
+		{
+			LastBGM.Stop();
+		}
+	}
+
+	public void PlaySfxDoorOpen()
 	{
 		audioDoorOpen.Play();
+	}
+
+	public void PlaySfxDoorClose()
+	{
+		audioDoorClose.Play();
+	}
+
+	public void PlayFadeIn(AudioSource audioSource)
+	{
+		StartCoroutine(FadeIn(audioSource));
+	}
+
+	public void PlayFadeOut(AudioSource audioSource)
+	{
+		StartCoroutine(FadeOut(audioSource));
+	}
+
+	IEnumerator FadeIn(AudioSource audioSource)
+	{
+		float volumeEnd = audioSource.volume;	
+		audioSource.volume = 0f;	
+		
+		audioSource.Play();
+		while (audioSource.volume < volumeEnd)
+		{
+			audioSource.volume += volumeEnd * Time.deltaTime / fadeTime;
+			yield return null;
+		}
+		audioSource.volume = volumeEnd;
+	}
+
+	IEnumerator FadeOut(AudioSource audioSource)
+	{
+		float volumeStart = audioSource.volume;
+
+		while (audioSource.volume > 0f)
+		{
+			audioSource.volume -= volumeStart * Time.deltaTime / fadeTime;
+			yield return null;
+		}
+		audioSource.Stop();
+		audioSource.volume = volumeStart;
 	}
 }
