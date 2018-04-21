@@ -36,6 +36,7 @@ public class HouseEnter : MonoBehaviour {
 
 	IEnumerator EnterWithDelay(float delay)
 	{
+		AudioManager.Instance.PlayDoorOpen();
 		UIController.Instance.FadeOut(delay);
 		yield return new WaitForSeconds(delay);
 		SceneManager.LoadScene("House");
