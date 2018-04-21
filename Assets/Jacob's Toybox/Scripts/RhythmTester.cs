@@ -29,7 +29,7 @@ public class RhythmTester : MonoBehaviour {
         nums = Array.ConvertAll(f.Split(','), float.Parse);
         foreach (float i in nums)
         {
-            Instantiate(thing,new Vector3(i * 5,4,0),Quaternion.identity);
+            Instantiate(thing,new Vector3(i * 5 + 1.5f,4,0),Quaternion.identity);
         }
         count = 1;
         nextHit = nums[count];
@@ -47,7 +47,7 @@ public class RhythmTester : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        bool spaceHit = Input.GetKeyDown(KeyCode.W);
+        bool playerHit = Input.GetKeyDown(KeyCode.W);
 
         Timer += Time.deltaTime;
         Color finalColor = Color.yellow * (1 - (Timer - nums[count - 1] / 1));
@@ -61,17 +61,17 @@ public class RhythmTester : MonoBehaviour {
             if(!triggered)
                 hitterMat.SetColor("_Color", Color.red);
 
-
+            triggered = false;
         }
 
         
-        if (spaceHit && Mathf.Abs(lastHit -Timer ) < 0.3f )
+        if (playerHit && Mathf.Abs(lastHit -Timer ) < 0.3f )
         {
             Debug.Log("hit");
             hitterMat.SetColor("_Color", Color.blue);
             triggered = true;
         }
-        else if (spaceHit){
+        else if (playerHit){
             hitterMat.SetColor("_Color", Color.red);
             triggered = false;
         }
