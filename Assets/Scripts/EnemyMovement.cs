@@ -80,8 +80,10 @@ public class EnemyMovement : MonoBehaviour {
             //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 		}
+
+		int wallLayer = 1 << LayerMask.NameToLayer("Walls");
         RaycastHit hit;
-        bool lookAhead = Physics.Raycast(transform.position, Vector3.forward, out hit, 0);
+        bool lookAhead = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f, wallLayer);
         print(lookAhead);
 
         // Does the ray intersect any objects excluding the player layer
@@ -98,7 +100,8 @@ public class EnemyMovement : MonoBehaviour {
             //gameObject.transform.position = target;
         }
         if (player.transform.position == transform.position) {
-            GameManager.Instance.Lose();
+            // GameManager.Instance.Lose();
+			player.GetComponent<GridPlayerController>().CaughtByEnemy();
         }
 
 	}

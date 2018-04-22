@@ -8,14 +8,14 @@ public class GridPlayerController : MonoBehaviour {
     float timer = 0;
     GameObject beat;
     AudioSource song;
-    bool detected;
+    bool caught;
     // Use this for initialization
     void Start () {
         beat = GameObject.Find("Beat");
         song = gameObject.GetComponent<AudioSource>();
         //song.time = 16;
         song.Play();
-        detected = false;
+        caught = false;
 
     }
 
@@ -86,12 +86,12 @@ public class GridPlayerController : MonoBehaviour {
 
     }
 
-    public void DetectedByEnemy()
+    public void CaughtByEnemy()
     {
-        //if (!detected)
-       // {
-        //    GameManager.Instance.Lose();
-       // }
-        detected = true;
+        if (!caught)
+       {
+            GameManager.Instance.Lose();
+       }
+        caught = true;
     }
 }
