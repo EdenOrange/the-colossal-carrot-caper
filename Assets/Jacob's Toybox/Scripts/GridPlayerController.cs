@@ -59,10 +59,11 @@ public class GridPlayerController : MonoBehaviour {
             target = new Vector3(1, 0, 0) + target;          
 
         }
+        bool lookAhead = Physics.Raycast(transform.position, transform.TransformDirection(target), out hit, 1);
         
 
         // Does the ray intersect any objects excluding the player layer
-        if (!Physics.Raycast(transform.position, transform.TransformDirection(target), out hit, 1))
+        if (!lookAhead)
         {
             target += gameObject.transform.position;
             gameObject.transform.position = target;
