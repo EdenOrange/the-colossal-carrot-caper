@@ -13,7 +13,7 @@ public class GridPlayerController : MonoBehaviour {
     void Start () {
         beat = GameObject.Find("Beat");
         song = gameObject.GetComponent<AudioSource>();
-        song.time = 16;
+        //song.time = 16;
         song.Play();
         detected = false;
 
@@ -23,8 +23,8 @@ public class GridPlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
-        float currentTime = ((timer + 0.3f) % 0.5f);
-        bool moveable = currentTime < 0.10f  || currentTime > 0.4f;
+        float currentTime = ((timer ) % 0.33f);
+        bool moveable = currentTime < 0.12f  || currentTime > 0.20f;
 
 
         if (moveable)
