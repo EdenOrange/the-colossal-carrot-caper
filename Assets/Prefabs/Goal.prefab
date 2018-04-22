@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4016332123214236}
   - component: {fileID: 33141434042881720}
-  - component: {fileID: 136231504256321696}
   - component: {fileID: 23674511671389078}
+  - component: {fileID: 65284001825610626}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Goal
@@ -83,8 +83,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1707685685416214}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &136231504256321696
-CapsuleCollider:
+--- !u!65 &65284001825610626
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -92,7 +92,6 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0, y: 0, z: 0}
