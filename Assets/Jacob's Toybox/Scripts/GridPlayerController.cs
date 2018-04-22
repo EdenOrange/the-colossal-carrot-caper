@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class GridPlayerController : MonoBehaviour {
     float timer = 0;
-    GameObject beat;
+    //GameObject beat;
 
-    GameObject goal;
+    //GameObject goal;
     AudioSource song;
     bool caught;
 
 
     // Use this for initialization
     void Start () {
-        goal = GameObject.Find("Goal");
+        //goal = GameObject.Find("Goal");
         //beat = GameObject.Find("Beat");
         song = gameObject.GetComponent<AudioSource>();
         //song.time = 16;
@@ -66,27 +66,32 @@ public class GridPlayerController : MonoBehaviour {
         }
         RaycastHit hit;
         bool lookAhead = Physics.Raycast(transform.position, transform.TransformDirection(target), out hit, 1);
-        
+
 
         // Does the ray intersect any objects excluding the player layer
-        if (!lookAhead)
+        if (lookAhead && hit.transform.tag == "Wall")
         {
-            target += gameObject.transform.position;
-            gameObject.transform.position = target;
+            //play wall hit sound
         }
-        if (lookAhead&& hit.transform.tag == "Collectible" )
+        else if (lookAhead&& hit.transform.tag == "Collectible" )
         {
             target += gameObject.transform.position;
             gameObject.transform.position = target;
             //do collect stuff here
             Destroy(hit.transform.gameObject);
         }
-        if (lookAhead && hit.transform.tag == "Goal")
+        else if (lookAhead && hit.transform.tag == "Goal")
         {
             target += gameObject.transform.position;
             gameObject.transform.position = target;
             //do goal stuff here stuff here
             Destroy(hit.transform.gameObject);
+        }
+        else if (lookAhead && hit.transform.tag == "Ground")
+        {
+            //jump sound and move
+            target += gameObject.transform.position;
+            gameObject.transform.position = target;
         }
 
     }

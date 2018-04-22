@@ -18,7 +18,7 @@ public class Beat {
 
 public class RhythmTester : MonoBehaviour {
     float Timer = 0f;
-    float TimeDelay =  1f * 65/60;
+   // float TimeDelay =  1f * 65/60;
     float nextHit = 0;
     float lastHit = 0.2f;
     float latency = 0.3f;
@@ -28,7 +28,7 @@ public class RhythmTester : MonoBehaviour {
     
 
 
-    bool hasHit = false;
+    //bool hasHit = false;
     GameObject TimerObj;
     GameObject HitterObj;
     Image ScoreBar;
@@ -39,7 +39,7 @@ public class RhythmTester : MonoBehaviour {
     GameObject thing;
     GameObject thingl;
     string[] keys;
-    string nextKey;
+    //string nextKey;
     string lastKey;
     float TimeSinceHit = 1;
 
@@ -93,7 +93,7 @@ public class RhythmTester : MonoBehaviour {
                 lastHit = nums[count - 1];
 
 
-                nextKey = keys[count].Trim();
+                //nextKey = keys[count].Trim();
                 lastKey = keys[count-1].Trim();
                 reset = lastHit + (nextHit - lastHit) / 2;
 
