@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4130730958837460}
-  - component: {fileID: 81060237751927090}
   - component: {fileID: 114427186056093620}
   m_Layer: 0
   m_Name: AudioManager
@@ -41,13 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &81060237751927090
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1600052419412582}
-  m_Enabled: 1
 --- !u!114 &114427186056093620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,8 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1015c26a37d47e49a6780ae4c1296ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmMainMenu: {fileID: 8300000, guid: 5992bc772fe40044b8919876bb02f1f1, type: 3}
-  bgmTown: {fileID: 8300000, guid: 605b4196229a4a5419819ed8e841b8d7, type: 3}
-  bgmHouse: {fileID: 8300000, guid: d08200d1d6d155b44a7dffa992e29902, type: 3}
-  sfxDoorOpen: {fileID: 8300000, guid: a54ec753106848e44871a90e5511db9f, type: 3}
-  sfxDoorClose: {fileID: 8300000, guid: fba78e6441acf58409bc90c538cd3ad9, type: 3}
+  sfxCarrotEat: {fileID: 8300000, guid: 191b0d2f5d752c34e9e5099247a8ec9d, type: 3}

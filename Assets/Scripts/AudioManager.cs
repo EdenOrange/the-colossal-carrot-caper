@@ -7,17 +7,11 @@ public class AudioManager : MonoBehaviour {
 
 	public static AudioManager Instance { get; private set; }
 
-	public AudioClip bgmMainMenu;
-	public AudioClip bgmTown;
-	public AudioClip bgmHouse;
-	public AudioClip sfxDoorOpen;
-	public AudioClip sfxDoorClose;
+	// public AudioClip bgm;
+	public AudioClip sfxCarrotEat;
 	
-	private AudioSource audioMainMenu;
-	private AudioSource audioTown;
-	private AudioSource audioHouse;
-	private AudioSource audioDoorOpen;
-	private AudioSource audioDoorClose;
+	// private AudioSource audioBgm;
+	private AudioSource audioCarrotEat;
 
 	public AudioSource LastBGM { get; private set; }
 
@@ -38,11 +32,8 @@ public class AudioManager : MonoBehaviour {
 
 		AudioListener.volume = defaultGlobalVolume;
 
-		audioMainMenu = AddAudio(bgmMainMenu, true, false, 1f);
-		audioTown = AddAudio(bgmTown, true, false, 1f);
-		audioHouse = AddAudio(bgmHouse, true, false, 1f);
-		audioDoorOpen = AddAudio(sfxDoorOpen, false, false, 1f);
-		audioDoorClose = AddAudio(sfxDoorClose, false, false, 1f);
+		// audioBgm = AddAudio(bgm, true, false, 1f);
+		audioCarrotEat = AddAudio(sfxCarrotEat, false, false, 1f);
 	}
 
 	void OnEnable()
@@ -58,12 +49,7 @@ public class AudioManager : MonoBehaviour {
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		StopBGM();
-		switch (scene.name)
-		{
-			case "Main Menu": PlayBGMMainMenu(); break;
-			case "Town": PlayBGMTown(); break;
-			case "House": PlayBGMHouse(); break;
-		}
+		PlayBGM();
 	}
 
 	AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume)
@@ -76,22 +62,10 @@ public class AudioManager : MonoBehaviour {
 		return newAudio;
 	}
 
-	public void PlayBGMMainMenu()
+	public void PlayBGM()
 	{
-		PlayFadeIn(audioMainMenu);
-		LastBGM = audioMainMenu;
-	}
-
-	public void PlayBGMTown()
-	{
-		PlayFadeIn(audioTown);
-		LastBGM = audioTown;
-	}
-
-	public void PlayBGMHouse()
-	{
-		PlayFadeIn(audioHouse);
-		LastBGM = audioHouse;
+		// audioBgm.Play();
+		// LastBGM = audioBgm;
 	}
 
 	public void StopBGM()
@@ -102,14 +76,9 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 
-	public void PlaySfxDoorOpen()
+	public void PlaySfxCarrotEat()
 	{
-		audioDoorOpen.Play();
-	}
-
-	public void PlaySfxDoorClose()
-	{
-		audioDoorClose.Play();
+		audioCarrotEat.Play();
 	}
 
 	public void PlayFadeIn(AudioSource audioSource)
