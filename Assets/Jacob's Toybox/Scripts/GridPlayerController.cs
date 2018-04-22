@@ -23,8 +23,8 @@ public class GridPlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
-        float currentTime = ((timer + 0.1f) % 0.5f);
-        bool moveable = currentTime < 0.22f  || currentTime > 0.27f;
+        float currentTime = ((timer + 0.3f) % 0.5f);
+        bool moveable = currentTime < 0.10f  || currentTime > 0.4f;
 
 
         if (moveable)
@@ -67,6 +67,13 @@ public class GridPlayerController : MonoBehaviour {
         {
             target += gameObject.transform.position;
             gameObject.transform.position = target;
+        }
+        if (lookAhead&& hit.transform.tag == "Collectible" )
+        {
+            target += gameObject.transform.position;
+            gameObject.transform.position = target;
+            //do collect stuff here
+            Destroy(hit.transform.gameObject);
         }
 
     }
