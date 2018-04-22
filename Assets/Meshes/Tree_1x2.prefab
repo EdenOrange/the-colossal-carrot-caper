@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4587340016081254}
   - component: {fileID: 33777875058897296}
   - component: {fileID: 23992039841687692}
+  - component: {fileID: 114479360537074174}
   m_Layer: 0
   m_Name: Tree_1x2
   m_TagString: Art
@@ -82,3 +83,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1990522105294412}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114479360537074174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1990522105294412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc8f3444e4d0914293e96c7659f5720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
