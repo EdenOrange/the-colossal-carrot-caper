@@ -10,7 +10,10 @@ public class Carrot : MonoBehaviour {
 		{
 			PlayerState playerState = collider.transform.gameObject.GetComponent<PlayerState>();
 			playerState.AddCarrot();
-			AudioManager.Instance.PlaySfxCarrotEat();
+			if (AudioManager.Instance != null)
+			{
+				AudioManager.Instance.PlaySfxCarrotEat();
+			}
 			Destroy(gameObject);
 		}
 	}
