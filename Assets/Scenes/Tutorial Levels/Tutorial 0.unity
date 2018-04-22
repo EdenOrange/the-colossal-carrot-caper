@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 75e678d77e5349648af645f2dc25f7a9,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -1711,7 +1712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0fddac8a027f3244ae943e0fe6038bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dl: {fileID: 0}
   RotationSpeed: 2
 --- !u!1 &1917949520 stripped
 GameObject:
@@ -1724,7 +1724,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1917949520}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4e0c9e19e700fd4c830f4d124c8bf8f, type: 3}
   m_Name: 
