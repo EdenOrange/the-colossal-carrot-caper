@@ -1002,24 +1002,6 @@ Transform:
   m_Father: {fileID: 1984837201}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1440205417 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1707685685416214, guid: a076f54b07b0e8b42887bce665675b21,
-    type: 2}
-  m_PrefabInternal: {fileID: 1673770681}
---- !u!114 &1440205418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1440205417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a660e31f90474c34992464b0188c791e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carrotsNeeded: 3
-  nextLevelSceneName: EdenLevel 3
 --- !u!1001 &1457963452
 Prefab:
   m_ObjectHideFlags: 0
@@ -1305,15 +1287,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 65284001825610626, guid: a076f54b07b0e8b42887bce665675b21,
+    - target: {fileID: 114008118220297968, guid: a076f54b07b0e8b42887bce665675b21,
         type: 2}
-      propertyPath: m_Size.x
-      value: 0.5
+      propertyPath: carrotsNeeded
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 65284001825610626, guid: a076f54b07b0e8b42887bce665675b21,
+    - target: {fileID: 114008118220297968, guid: a076f54b07b0e8b42887bce665675b21,
         type: 2}
-      propertyPath: m_Size.z
-      value: 0.5
+      propertyPath: nextLevelSceneName
+      value: EdenLevel 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a076f54b07b0e8b42887bce665675b21, type: 2}
