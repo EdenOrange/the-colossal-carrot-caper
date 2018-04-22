@@ -7,10 +7,15 @@ using UnityEngine;
 public class GridPlayerController : MonoBehaviour {
     float timer = 0;
     GameObject beat;
+
+    GameObject goal;
     AudioSource song;
     bool caught;
+
+
     // Use this for initialization
     void Start () {
+        goal = GameObject.Find("Goal");
         beat = GameObject.Find("Beat");
         song = gameObject.GetComponent<AudioSource>();
         //song.time = 16;

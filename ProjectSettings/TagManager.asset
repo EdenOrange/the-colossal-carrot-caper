@@ -6,6 +6,7 @@ TagManager:
   tags:
   - rhythmblock
   - Collectible
+  - Goal
   layers:
   - Default
   - TransparentFX
