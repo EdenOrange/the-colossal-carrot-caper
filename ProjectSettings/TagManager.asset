@@ -7,6 +7,8 @@ TagManager:
   - rhythmblock
   - Collectible
   - Goal
+  - Wall
+  - Ground
   layers:
   - Default
   - TransparentFX
