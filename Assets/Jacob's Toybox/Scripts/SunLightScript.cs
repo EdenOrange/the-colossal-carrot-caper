@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SunLightScript : MonoBehaviour {
     public GameObject dl;
-    public float RotationSpeed = 2.0f;
+    public float RotationSpeed = 0.8f;
     private float progress = 0f;
     Light lightComp;
 
