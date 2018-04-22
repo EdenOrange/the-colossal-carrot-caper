@@ -85,7 +85,7 @@ public class GridPlayerController : MonoBehaviour {
             target += gameObject.transform.position;
             gameObject.transform.position = target;
             //do collect stuff here
-            Destroy(hit.transform.gameObject);
+            // Destroy(hit.transform.gameObject);
         }
         else if (lookAhead && hit.transform.tag == "Goal")
         {

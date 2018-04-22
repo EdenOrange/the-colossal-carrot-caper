@@ -17,6 +17,14 @@ public class EnemyMovement : MonoBehaviour {
 	private int[,] costMap; // The cost of a cell
 
 	private PlayerState playerState;
+	private EnemyState enemyState;
+
+	/* Enemy's 4 materials representing Up, Down, Left, and Right */
+	public Material enemyUp;
+	public Material enemyDown;
+	public Material enemyLeft;
+	public Material enemyRight;
+	private MeshRenderer meshRenderer;
     
 	void Start()
 	{
@@ -27,6 +35,10 @@ public class EnemyMovement : MonoBehaviour {
 		mapDataGenerator = GameObject.Find("MapManager").GetComponent<MapDataGenerator>();
 		costMap = new int[MapDataGenerator.MAX_MAP_WIDTH, MapDataGenerator.MAX_MAP_LENGTH];
 		playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
+		enemyState = GetComponent<EnemyState>();
+		enemyState.enemyFacing = EnemyState.EnemyFacing.UP;
+
+		meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
 	}
 
 	void Update()
@@ -73,19 +85,23 @@ public class EnemyMovement : MonoBehaviour {
 		Vector3 direction = to - from;
 		if (direction.x > 0f)
 		{
-			transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+			meshRenderer.material = enemyRight;
+			enemyState.enemyFacing = EnemyState.EnemyFacing.RIGHT;
 		}
 		else if (direction.x < 0f)
 		{
-			transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+			meshRenderer.material = enemyLeft;
+			enemyState.enemyFacing = EnemyState.EnemyFacing.LEFT;
 		}
 		else if (direction.z > 0f)
 		{
-			transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+			meshRenderer.material = enemyUp;
+			enemyState.enemyFacing = EnemyState.EnemyFacing.UP;
 		}
 		else if (direction.z < 0f)
 		{
-			transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+			meshRenderer.material = enemyDown;
+			enemyState.enemyFacing = EnemyState.EnemyFacing.DOWN;
 		}
 	}
 
