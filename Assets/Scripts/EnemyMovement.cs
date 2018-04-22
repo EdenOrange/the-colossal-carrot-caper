@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class EnemyMovement : MonoBehaviour {
     public GameObject player;
 	public float moveDelay = 0.66f;
 	private float moveTimer;
+
+	private MapDataGenerator mapDataGenerator;
+	private int[,] costMap; // The cost of a cell
     
 	void Start()
 	{
@@ -18,6 +22,8 @@ public class EnemyMovement : MonoBehaviour {
         currentTargetIdx = 0;
 		moveTimer = 0f;
         
+		mapDataGenerator = GameObject.Find("MapManager").GetComponent<MapDataGenerator>();
+		costMap = new int[MapDataGenerator.MAX_MAP_WIDTH, MapDataGenerator.MAX_MAP_LENGTH];
 	}
 
 	void Update()
@@ -26,6 +32,7 @@ public class EnemyMovement : MonoBehaviour {
 		if (moveTimer >= moveDelay)
 		{
 			Move();
+			CatchPlayerCheck();
 			moveTimer -= moveDelay;
 		}
 	}
@@ -37,72 +44,127 @@ public class EnemyMovement : MonoBehaviour {
 			currentTargetIdx = (currentTargetIdx + 1) % targetPoints.Count;
 		}
 
-        float targetX = targetPoints[currentTargetIdx].x;
-        float targetZ = targetPoints[currentTargetIdx].z;
-
-        if (detected) {
-            targetX = player.transform.position.x;
-            targetZ = player.transform.position.z;
-        }
-
-        /* Move towards next target point */
-        
-		float currentX = transform.position.x;
-		float currentZ = transform.position.z;
-
-        Vector3 target = new Vector3(0, 0, 0);
-		if (currentX < targetX)
+		Vector3 target;
+		if (detected && player != null)
 		{
-            // Moves right
-            target = new Vector3(1, 0, 0) + target;
-
-            //transform.position = new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z);
-            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+			target = player.transform.position;
 		}
-		else if (currentX > targetX)
+		else
 		{
-            // Moves left
-            target = new Vector3(-1, 0, 0) + target;
-            //transform.position = new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z);
-            transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-		}
-		else if (currentZ < targetZ)
-		{
-            // Moves up
-            target = new Vector3(0, 0, 1) + target;
-            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1f);
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-		}
-		else if (currentZ > targetZ)
-		{
-            // Moves down
-            target = new Vector3(0, 0, -1) + target;
-            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
-            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+			target = targetPoints[currentTargetIdx];
 		}
 
-		int wallLayer = 1 << LayerMask.NameToLayer("Walls");
-        RaycastHit hit;
-        bool lookAhead = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f, wallLayer);
-        print(lookAhead);
+		transform.position = NextMoveToTarget(target);
+	}
 
-        // Does the ray intersect any objects excluding the player layer
-        if (!lookAhead)
-        {
-            //print(hit);
-            target += gameObject.transform.position;
-            gameObject.transform.position = target;
-        }
-        if (lookAhead)
-        {
-            print(hit.transform.gameObject);
-            //target += gameObject.transform.position;
-            //gameObject.transform.position = target;
-        }
-        if (player.transform.position == transform.position) {
-            // GameManager.Instance.Lose();
+	void CatchPlayerCheck()
+	{
+		if (player.transform.position == transform.position) {
 			player.GetComponent<GridPlayerController>().CaughtByEnemy();
         }
+	}
 
+	/* Rotate according to move direction */
+	void Rotate(Vector3 from, Vector3 to)
+	{
+		Vector3 direction = to - from;
+		if (direction.x > 0f)
+		{
+			transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+		}
+		else if (direction.x < 0f)
+		{
+			transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+		}
+		else if (direction.z > 0f)
+		{
+			transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+		}
+		else if (direction.z < 0f)
+		{
+			transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+		}
+	}
+
+	Vector3 NextMoveToTarget(Vector3 target)
+	{
+		// Debug.Log("Move to Target : " + target);
+		/* Get a reference to the map cells data */
+		Cell[,] cells = MapDataGenerator.cells;
+		
+		/* Calculate the cost of each cell */
+		for (int i = 0; i < mapDataGenerator.mapWidth; i++)
+		{
+			for (int j = 0; j < mapDataGenerator.mapLength; j++)
+			{
+				if (cells[i, j].wall)
+				{
+					costMap[i, j] = 9999;
+				}
+				else 
+				{
+					costMap[i, j] = 1;
+				}
+			}
+		}
+
+		CellPosition targetPosition = new CellPosition((int)target.x, (int)target.z);
+		CellPosition transformPosition = new CellPosition((int)transform.position.x, (int)transform.position.z);
+
+		PriorityQueue<CellCost> frontier = new PriorityQueue<CellCost>();
+		frontier.Enqueue(new CellCost(transformPosition, 0));
+		Dictionary<CellPosition, CellPosition> cameFrom = new Dictionary<CellPosition, CellPosition>(new CellPosition.EqualityComparer());
+		Dictionary<CellPosition, int> costSoFar = new Dictionary<CellPosition, int>(new CellPosition.EqualityComparer());
+		cameFrom.Add(transformPosition, new CellPosition(-1, -1));
+		costSoFar.Add(transformPosition, 0);
+
+		/* A* algorithm */
+		while (frontier.Count() > 0)
+		{
+			CellCost current = frontier.Dequeue();
+			if (current.cellPosition.x == targetPosition.x && current.cellPosition.z == targetPosition.z) break;
+			CellPosition[] possibleMoves = new CellPosition[4]
+			{
+				new CellPosition(1, 0),
+				new CellPosition(-1, 0),
+				new CellPosition(0, 1),
+				new CellPosition(0, -1)
+			};
+
+			foreach (CellPosition move in possibleMoves)
+			{
+				int newCost = costSoFar[current.cellPosition] + costMap[current.cellPosition.z + move.z, current.cellPosition.x + move.x];
+				CellPosition nextPosition = current.cellPosition + move;
+
+				bool newCostIsCheaper = costSoFar.ContainsKey(nextPosition) ? newCost < costSoFar[nextPosition] : false;
+				if (!costSoFar.ContainsKey(nextPosition) || newCostIsCheaper)
+				{
+					if (!costSoFar.ContainsKey(nextPosition)) costSoFar.Add(nextPosition, 0);
+					costSoFar[nextPosition] = newCost;
+					int priority = newCost + HeuristicCost(targetPosition, nextPosition);
+					frontier.Enqueue(new CellCost(nextPosition, priority));
+					if (!cameFrom.ContainsKey(nextPosition)) cameFrom.Add(nextPosition, new CellPosition(-1, -1));
+					cameFrom[nextPosition] = current.cellPosition;
+				}
+			}
+		}
+
+		/* Get next position to move towards the target */
+		CellPosition nextMovePosition = targetPosition;
+		while (cameFrom[nextMovePosition].x != transformPosition.x || cameFrom[nextMovePosition].z != transformPosition.z)
+		{
+			nextMovePosition = cameFrom[nextMovePosition];
+		}
+
+		Vector3 nextMove = new Vector3(nextMovePosition.x, 0f, nextMovePosition.z);
+		// Debug.Log("Decided next move : " + nextMove);
+		Rotate(transform.position, nextMove);
+		return nextMove;
+	}
+
+	/* Returns Manhattan distance from pointA to pointB */
+	int HeuristicCost(CellPosition pointA, CellPosition pointB)
+	{
+		return (int)(Mathf.Abs(pointA.x - pointB.x) + Mathf.Abs(pointA.z - pointB.z));
 	}
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MapDataGenerator : MonoBehaviour {
 
-	private const int MAX_MAP_LENGTH = 100;
-	private const int MAX_MAP_WIDTH = 100;
+	public const int MAX_MAP_LENGTH = 100;
+	public const int MAX_MAP_WIDTH = 100;
 
 	/* The cells data */
-	public Cell[,] cells;
+	public static Cell[,] cells;
 
 	/* The coordinates for the most-bottom left of the level */
 	public int xStart;
