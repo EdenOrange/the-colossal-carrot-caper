@@ -13,8 +13,9 @@ public class PlayerState : MonoBehaviour {
 		goal = false;
 	}
 
-	public void GetCarrot()
+	public void AddCarrot()
 	{
+		Debug.Log("Added carrot");
 		carrots++;
 	}
 }
