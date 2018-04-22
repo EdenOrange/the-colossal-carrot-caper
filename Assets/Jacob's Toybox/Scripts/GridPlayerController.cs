@@ -29,7 +29,7 @@ public class GridPlayerController : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         float currentTime = ((timer ) % 0.33f);
-        bool moveable = currentTime < 0.12f  || currentTime > 0.20f;
+        bool moveable = true;// currentTime < 0.12f  || currentTime > 0.20f;
 
         /*
         if (moveable)
