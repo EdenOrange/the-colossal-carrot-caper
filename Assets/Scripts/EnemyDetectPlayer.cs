@@ -8,15 +8,17 @@ public class EnemyDetectPlayer : MonoBehaviour {
 
 	void Update()
 	{
-		int enemyLayer = 1 << LayerMask.NameToLayer("Enemy");
-		int ignoreEnemyLayer = ~enemyLayer;
+		//int enemyLayer = 1 << LayerMask.NameToLayer("Enemy");
+		//int ignoreEnemyLayer = ~enemyLayer;
 
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distance, ignoreEnemyLayer))
+		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distance))
 		{
 			if (hit.transform.tag == "Player")
 			{
-				hit.transform.gameObject.GetComponent<GridPlayerController>().DetectedByEnemy();
+                //
+                gameObject.GetComponent<EnemyMovement>().detected = true;
+                //hit.transform.gameObject.GetComponent<GridPlayerController>().DetectedByEnemy();
 			}
 		}
 	}

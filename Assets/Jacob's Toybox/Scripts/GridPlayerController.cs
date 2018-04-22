@@ -40,7 +40,7 @@ public class GridPlayerController : MonoBehaviour {
         bool s = Input.GetKeyDown(KeyCode.S);
         bool d = Input.GetKeyDown(KeyCode.D);
 
-        RaycastHit hit;
+        
         Vector3 target = new Vector3(0,0,0);
 
         if (w && moveable) {
@@ -59,6 +59,7 @@ public class GridPlayerController : MonoBehaviour {
             target = new Vector3(1, 0, 0) + target;          
 
         }
+        RaycastHit hit;
         bool lookAhead = Physics.Raycast(transform.position, transform.TransformDirection(target), out hit, 1);
         
 
@@ -75,15 +76,22 @@ public class GridPlayerController : MonoBehaviour {
             //do collect stuff here
             Destroy(hit.transform.gameObject);
         }
+        if (lookAhead && hit.transform.tag == "Goal")
+        {
+            target += gameObject.transform.position;
+            gameObject.transform.position = target;
+            //do goal stuff here stuff here
+            Destroy(hit.transform.gameObject);
+        }
 
     }
 
     public void DetectedByEnemy()
     {
-        if (!detected)
-        {
-            GameManager.Instance.Lose();
-        }
+        //if (!detected)
+       // {
+        //    GameManager.Instance.Lose();
+       // }
         detected = true;
     }
 }
