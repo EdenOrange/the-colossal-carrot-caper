@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114589572016420518}
   m_Layer: 8
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,4 +197,6 @@ MonoBehaviour:
   - {x: 3, y: 0, z: 5}
   - {x: 5, y: 0, z: 5}
   - {x: 5, y: 0, z: 3}
+  detected: 0
+  player: {fileID: 0}
   moveDelay: 0.5
