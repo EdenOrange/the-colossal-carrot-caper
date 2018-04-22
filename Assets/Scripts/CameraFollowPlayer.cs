@@ -5,9 +5,14 @@ using UnityEngine;
 public class CameraFollowPlayer : MonoBehaviour {
 
 	public GameObject player;
-	public Vector3 offset;
+	public Vector3 offset = new Vector3(2,12,-8);
 
-	void Update()
+
+    void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+    void Update()
 	{
 		transform.position = player.transform.position + offset;
 	}

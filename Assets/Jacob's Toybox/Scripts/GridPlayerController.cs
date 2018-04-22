@@ -16,7 +16,7 @@ public class GridPlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         goal = GameObject.Find("Goal");
-        beat = GameObject.Find("Beat");
+        //beat = GameObject.Find("Beat");
         song = gameObject.GetComponent<AudioSource>();
         //song.time = 16;
         song.Play();
@@ -31,14 +31,14 @@ public class GridPlayerController : MonoBehaviour {
         float currentTime = ((timer ) % 0.33f);
         bool moveable = currentTime < 0.12f  || currentTime > 0.20f;
 
-
+        /*
         if (moveable)
         {
             beat.active = true;
         }
         else {
             beat.active = false;
-        }
+        }*/
 
         bool w = Input.GetKeyDown(KeyCode.W);
         bool a = Input.GetKeyDown(KeyCode.A);
