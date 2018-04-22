@@ -93,6 +93,7 @@ public class GridPlayerController : MonoBehaviour {
             target += gameObject.transform.position;
             gameObject.transform.position = target;
         }
+        
 
     }
 
