@@ -12,6 +12,8 @@ public class GridPlayerController : MonoBehaviour {
     AudioSource song;
     bool caught;
 
+    PlayerState playerState;
+
 
     // Use this for initialization
     void Start () {
@@ -21,7 +23,7 @@ public class GridPlayerController : MonoBehaviour {
         //song.time = 16;
         song.Play();
         caught = false;
-
+        playerState = GetComponent<PlayerState>();
     }
 
 	
@@ -39,6 +41,11 @@ public class GridPlayerController : MonoBehaviour {
         else {
             beat.active = false;
         }*/
+
+        if (playerState.goal)
+        {
+            return;
+        }
 
         bool w = Input.GetKeyDown(KeyCode.W);
         bool a = Input.GetKeyDown(KeyCode.A);
@@ -85,7 +92,7 @@ public class GridPlayerController : MonoBehaviour {
             target += gameObject.transform.position;
             gameObject.transform.position = target;
             //do goal stuff here stuff here
-            Destroy(hit.transform.gameObject);
+            // Destroy(hit.transform.gameObject);
         }
         else if (lookAhead && hit.transform.tag == "Ground")
         {

@@ -20,15 +20,21 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
+	public void Goal(string nextLevelSceneName)
+	{
+		UIFaderController.Instance.FadeOut(1f);
+		StartCoroutine(LoadLevelWithDelay(nextLevelSceneName, 1f));
+	}
+
 	public void Lose()
 	{
 		UIFaderController.Instance.FadeOut(1f);
-		StartCoroutine(RestartLevelWithDelay(1f));
+		StartCoroutine(LoadLevelWithDelay(SceneManager.GetActiveScene().name ,1f));
 	}
 
-	IEnumerator RestartLevelWithDelay(float delay)
+	IEnumerator LoadLevelWithDelay(string sceneName, float delay)
 	{
 		yield return new WaitForSeconds(delay);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		SceneManager.LoadScene(sceneName);
 	}
 }

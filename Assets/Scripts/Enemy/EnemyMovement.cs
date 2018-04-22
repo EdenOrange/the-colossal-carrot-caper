@@ -15,6 +15,8 @@ public class EnemyMovement : MonoBehaviour {
 
 	private MapDataGenerator mapDataGenerator;
 	private int[,] costMap; // The cost of a cell
+
+	private PlayerState playerState;
     
 	void Start()
 	{
@@ -24,12 +26,13 @@ public class EnemyMovement : MonoBehaviour {
         
 		mapDataGenerator = GameObject.Find("MapManager").GetComponent<MapDataGenerator>();
 		costMap = new int[MapDataGenerator.MAX_MAP_WIDTH, MapDataGenerator.MAX_MAP_LENGTH];
+		playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
 	}
 
 	void Update()
 	{
 		moveTimer += Time.deltaTime;
-		if (moveTimer >= moveDelay)
+		if (moveTimer >= moveDelay && !playerState.goal)
 		{
 			Move();
 			CatchPlayerCheck();
