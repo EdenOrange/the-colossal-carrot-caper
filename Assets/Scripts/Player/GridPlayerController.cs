@@ -8,6 +8,7 @@ public class GridPlayerController : MonoBehaviour {
     float timer = 0;
     AudioSource song;
     bool caught;
+    bool started = false;
     PlayerState playerState;
     Vector3 destination;
     
@@ -88,6 +89,7 @@ public class GridPlayerController : MonoBehaviour {
             target += destination;
             destination = target;
             GameManager.beatsSinceHit = 0;
+            started = true;
         }
         else if (lookAhead && hit.transform.tag == "Wall")
         {
@@ -100,9 +102,12 @@ public class GridPlayerController : MonoBehaviour {
         if (transform.position != destination) {
             transform.position = Vector3.Lerp(transform.position, destination, 16.0f * Time.deltaTime);
         }
+        if (!started) {
+            GameManager.beatsSinceHit = 0;
+        }
 
 
-        if (GameManager.beatsSinceHit > 15) {
+        if (GameManager.beatsSinceHit > 15 && started) {
             GameManager.Instance.Lose();
         }
 
