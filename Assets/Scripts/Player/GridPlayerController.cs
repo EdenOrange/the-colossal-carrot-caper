@@ -12,7 +12,7 @@ public class GridPlayerController : MonoBehaviour {
     Vector3 destination;
     public Material yellowMat;
     public BeatController bc;
-
+    bool hasHit;
     // Use this for initialization
     void Start () {
         song = gameObject.GetComponent<AudioSource>();
@@ -28,14 +28,22 @@ public class GridPlayerController : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         float currentTime = ((timer ) % 0.6667f);
-        bool moveable = currentTime < 0.25f  || currentTime > 0.41f;
+        bool moveable = currentTime < 0.17f  || currentTime > 0.17f;
 
-        
+        if (currentTime <= 0.01f) {
+            hasHit = false;
+        }
+        if (currentTime >= 0.65f && !hasHit)
+        {
+            bc.missBeat();
+        }
+
+
         //RaycastHit down;
         //bool lookDown = Physics.Raycast(transform.position, Vector3.down, out down, 1);
-       // print(down.transform.gameObject);
+        // print(down.transform.gameObject);
 
-        
+
 
         if (playerState.goal)
         {
@@ -88,6 +96,7 @@ public class GridPlayerController : MonoBehaviour {
             destination = target;
             GameManager.beatsSinceHit = 0;
             started = true;
+            hasHit = true;
         }
         else if (lookAhead && hit.transform.tag == "Wall")
         {
