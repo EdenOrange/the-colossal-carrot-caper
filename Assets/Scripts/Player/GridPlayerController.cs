@@ -28,12 +28,12 @@ public class GridPlayerController : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         float currentTime = ((timer ) % 0.6667f);
-        bool moveable = currentTime < 0.17f  || currentTime > 0.17f;
+        bool moveable = currentTime < 0.17f  || currentTime > 0.50f;
 
-        if (currentTime <= 0.01f) {
+        if (currentTime <= 0.01f ) {
             hasHit = false;
         }
-        if (currentTime >= 0.65f && !hasHit)
+        if (currentTime >= 0.65f && !hasHit && Time.timeSinceLevelLoad > 3)
         {
             bc.missBeat();
         }

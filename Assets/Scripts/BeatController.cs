@@ -38,9 +38,11 @@ public class BeatController : MonoBehaviour {
 
     public void hitBeat() {
         hitVal = 1;
+        missVal = 0;
     }
     public void missBeat()
     {
         missVal = 1;
+        hitVal = 0;
     }
 }
