@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33491607474283132}
   - component: {fileID: 136261865448687204}
   - component: {fileID: 23160525975411630}
+  - component: {fileID: 114816999421873536}
   m_Layer: 0
   m_Name: Pickup
   m_TagString: Collectible
@@ -56,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6ea32589faf427746b6990ac815edf03, type: 2}
+  - {fileID: 2100000, guid: b355b94113078d84b854c5b246b3ed31, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +83,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1587423659444644}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114816999421873536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1587423659444644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc8f3444e4d0914293e96c7659f5720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136261865448687204
 CapsuleCollider:
   m_ObjectHideFlags: 1
