@@ -36,6 +36,8 @@ public class AudioManager : MonoBehaviour {
 		audioBgmMainMenu = AddAudio(bgmMainMenu, true, false, 1f);
 		audioCarrotEat = AddAudio(sfxCarrotEat, false, false, 1f);
         audioMissedBeat = AddAudio(sfxMissedBeat, false, false, 1f);
+
+		LastBGM = null;
     }
 
 	void OnEnable()
@@ -50,8 +52,12 @@ public class AudioManager : MonoBehaviour {
 
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		StopBGM();
-		if (scene.name == "Main Menu")
+		if (scene.name != "Main Menu" && scene.name != "Level Select")
+		{
+			StopBGM();
+		}
+		Debug.Log(LastBGM);
+		if (LastBGM == null)
 		{
 			PlayBGM();
 		}
@@ -78,6 +84,7 @@ public class AudioManager : MonoBehaviour {
 		if (LastBGM != null)
 		{
 			LastBGM.Stop();
+			LastBGM = null;
 		}
 	}
 

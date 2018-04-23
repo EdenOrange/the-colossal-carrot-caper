@@ -51,7 +51,7 @@ public class UIMainMenuController : MonoBehaviour {
 
 	IEnumerator StartGame()
 	{
-		AudioManager.Instance.PlayFadeOut(AudioManager.Instance.LastBGM);
+		// AudioManager.Instance.PlayFadeOut(AudioManager.Instance.LastBGM);
 		UIFaderController.Instance.FadeOut(1f);
 		yield return new WaitForSeconds(1f);
 		mainMenu.SetActive(false);

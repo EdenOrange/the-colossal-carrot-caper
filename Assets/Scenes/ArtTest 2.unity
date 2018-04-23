@@ -4897,7 +4897,7 @@ Prefab:
     - target: {fileID: 114008118220297968, guid: a076f54b07b0e8b42887bce665675b21,
         type: 2}
       propertyPath: nextLevelSceneName
-      value: Main Menu
+      value: Level Select
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a076f54b07b0e8b42887bce665675b21, type: 2}
