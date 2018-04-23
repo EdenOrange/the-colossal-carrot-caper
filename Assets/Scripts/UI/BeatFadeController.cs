@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BeatFadeController : MonoBehaviour {
     Image fade;
+    float fadeVal;
 	// Use this for initialization
 	void Start () {
         fade = gameObject.GetComponent<Image>();
@@ -15,11 +16,13 @@ public class BeatFadeController : MonoBehaviour {
         if (GameManager.beatsSinceHit > 5)
         {
             Color c = Color.black;
-            c.a = 0.1f * (GameManager.beatsSinceHit - 5);
+            fadeVal += 0.1f * Time.deltaTime;
+            c.a = Mathf.Lerp(c.a, fadeVal,1);
             fade.color = c;
         }
         else {
             Color c = Color.black;
+            fadeVal = 0;
             c.a = 0;
             fade.color = c;
         }
