@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 public class GridPlayerController : MonoBehaviour {
-    float timer = 0;
+    float timer = 0f;
     AudioSource song;
     bool started = false;
     PlayerState playerState;
@@ -111,7 +111,7 @@ public class GridPlayerController : MonoBehaviour {
         }
 
 
-        if (GameManager.beatsSinceHit > 15) {
+        if (GameManager.beatsSinceHit > 10) {
             started = false;
             GameManager.Instance.Lose();
         }
