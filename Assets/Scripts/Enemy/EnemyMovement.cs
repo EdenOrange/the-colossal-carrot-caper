@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour {
 	public Material enemyLeft;
 	public Material enemyRight;
 	private MeshRenderer meshRenderer;
+    Vector3 destination;
     
 	void Start()
 	{
@@ -48,7 +49,7 @@ public class EnemyMovement : MonoBehaviour {
 		{
 			Move();
 			CatchPlayerCheck();
-			moveTimer -= moveDelay;
+			moveTimer = 0;
 		}
 	}
 
@@ -69,8 +70,17 @@ public class EnemyMovement : MonoBehaviour {
 			target = targetPoints[currentTargetIdx];
 		}
 
-		transform.position = NextMoveToTarget(target);
-	}
+        transform.position = NextMoveToTarget(target);
+
+        //doesnt work.
+        //destination = NextMoveToTarget(target);
+        //if (transform.position != destination)
+        //{
+            
+        //    transform.position = Vector3.Lerp(transform.position, destination, 16f * Time.deltaTime);
+        //}
+        
+    }
 
 	void CatchPlayerCheck()
 	{
