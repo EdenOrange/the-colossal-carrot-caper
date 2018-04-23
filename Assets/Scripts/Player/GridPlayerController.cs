@@ -55,7 +55,8 @@ public class GridPlayerController : MonoBehaviour {
 
             GameManager.beatsSinceHit++;
             AudioManager.Instance.PlaySfxMissedBeat();
-            
+            bc.missBeat();
+
         }
         if (w && moveable)
         {
