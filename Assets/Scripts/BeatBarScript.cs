@@ -7,10 +7,12 @@ public class BeatBarScript : MonoBehaviour {
     public Transform beatTick;
     float currentTime = 0f;
     float nextBeat = 0f;
+    public GameObject TickHolder;
     public GameObject canvas;
 	// Use this for initialization
 	void Start () {
         beatTime = 0.6667f;
+        TickHolder = GameObject.Find("TickHolder");
 	}
 	
 	// Update is called once per frame
@@ -18,8 +20,8 @@ public class BeatBarScript : MonoBehaviour {
         currentTime += Time.deltaTime;
 
         if (currentTime > nextBeat) {
-            Transform left = Instantiate(beatTick, new Vector3(0, 0, 0), Quaternion.identity, canvas.transform);
-            Transform right = Instantiate(beatTick, new Vector3(0, 0, 0) , Quaternion.identity,canvas.transform);
+            Transform left = Instantiate(beatTick, new Vector3(0, 0, 0), Quaternion.identity, TickHolder.transform);
+            Transform right = Instantiate(beatTick, new Vector3(0, 0, 0) , Quaternion.identity, TickHolder.transform);
             left.gameObject.GetComponent<RectTransform>().position = new Vector3(-75, 95, 0);
             right.gameObject.GetComponent<RectTransform>().position = new Vector3(Screen.width+75, 95, 0);
             nextBeat += beatTime;
