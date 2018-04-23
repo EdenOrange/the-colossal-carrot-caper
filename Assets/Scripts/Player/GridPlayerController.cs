@@ -10,8 +10,9 @@ public class GridPlayerController : MonoBehaviour {
     bool started = false;
     PlayerState playerState;
     Vector3 destination;
-    
-
+    public Material yellowMat;
+    public BeatController bc;
+    bool hasHit;
     // Use this for initialization
     void Start () {
         song = gameObject.GetComponent<AudioSource>();
@@ -19,6 +20,7 @@ public class GridPlayerController : MonoBehaviour {
         playerState = GetComponent<PlayerState>();
 
         destination = gameObject.transform.position;
+        bc = GetComponent<BeatController>(); 
     }
 
 	
@@ -26,16 +28,22 @@ public class GridPlayerController : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         float currentTime = ((timer ) % 0.6667f);
-        bool moveable = currentTime < 0.25f  || currentTime > 0.41f;
+        bool moveable = currentTime < 0.17f  || currentTime > 0.50f;
 
-        /*
-        if (moveable)
-        {
-            beat.active = true;
+        if (currentTime <= 0.01f ) {
+            hasHit = false;
         }
-        else {
-            beat.active = false;
-        }*/
+        if (currentTime >= 0.65f && !hasHit && Time.timeSinceLevelLoad > 3)
+        {
+            bc.missBeat();
+        }
+
+
+        //RaycastHit down;
+        //bool lookDown = Physics.Raycast(transform.position, Vector3.down, out down, 1);
+        // print(down.transform.gameObject);
+
+
 
         if (playerState.goal)
         {
@@ -50,25 +58,24 @@ public class GridPlayerController : MonoBehaviour {
         
         Vector3 target = new Vector3(0,0,0);
         if ((w || a || s || d) && !moveable) {
-
+            bc.missBeat();
             GameManager.beatsSinceHit++;
             AudioManager.Instance.PlaySfxMissedBeat();
+            //down.transform.gameObject.GetComponent<Renderer>().material = yellowMat;
+
             
         }
         if (w && moveable)
         {
             target = new Vector3(0, 0, 1) + target;
-            GameManager.beatsSinceHit = 0;
         }
         else if (a && moveable)
         {
             target = new Vector3(-1, 0, 0) + target;
-            GameManager.beatsSinceHit = 0;
         }
         else if (s && moveable)
         {
             target = new Vector3(0, 0, -1) + target;
-            GameManager.beatsSinceHit = 0;
         }
         else if (d && moveable)
         {
@@ -84,10 +91,12 @@ public class GridPlayerController : MonoBehaviour {
         // Does the ray intersect any objects excluding the player layer
         if (lookAhead && hit.transform.tag != "Wall")
         {
+            bc.hitBeat();
             target += destination;
             destination = target;
             GameManager.beatsSinceHit = 0;
             started = true;
+            hasHit = true;
         }
         else if (lookAhead && hit.transform.tag == "Wall")
         {
@@ -105,8 +114,11 @@ public class GridPlayerController : MonoBehaviour {
         }
 
 
-        if (GameManager.beatsSinceHit > 15 && started) {
+        if (GameManager.beatsSinceHit > 15 ) {
+            started = false;
             GameManager.Instance.Lose();
+            
+
         }
     }
 
