@@ -9,11 +9,12 @@ public class AudioManager : MonoBehaviour {
 
 	// public AudioClip bgm;
 	public AudioClip sfxCarrotEat;
-	
-	// private AudioSource audioBgm;
-	private AudioSource audioCarrotEat;
+    public AudioClip sfxMissedBeat;
 
-	public AudioSource LastBGM { get; private set; }
+    // private AudioSource audioBgm;
+    private AudioSource audioCarrotEat;
+    private AudioSource audioMissedBeat;
+    public AudioSource LastBGM { get; private set; }
 
 	private float defaultGlobalVolume = 0.7f;
 	private float fadeTime = 1f;
@@ -34,7 +35,8 @@ public class AudioManager : MonoBehaviour {
 
 		// audioBgm = AddAudio(bgm, true, false, 1f);
 		audioCarrotEat = AddAudio(sfxCarrotEat, false, false, 1f);
-	}
+        audioMissedBeat = AddAudio(sfxMissedBeat, false, false, 1f);
+    }
 
 	void OnEnable()
 	{
@@ -80,8 +82,12 @@ public class AudioManager : MonoBehaviour {
 	{
 		audioCarrotEat.Play();
 	}
+    public void PlaySfxMissedBeat()
+    {
+        audioMissedBeat.Play();
+    }
 
-	public void PlayFadeIn(AudioSource audioSource)
+    public void PlayFadeIn(AudioSource audioSource)
 	{
 		StartCoroutine(FadeIn(audioSource));
 	}

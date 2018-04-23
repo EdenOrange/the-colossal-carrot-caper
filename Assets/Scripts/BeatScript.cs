@@ -14,14 +14,14 @@ public class BeatScript : MonoBehaviour {
         //Debug.Log(rt.position.x);
         if (rt.position.x < Screen.width / 2 - 3)
         {
-            Vector3 newpos = new Vector3(160, 0, 0);
+            Vector3 newpos = new Vector3(210, 0, 0);
             rt.position = rt.position + (newpos * Time.deltaTime) ;
             
 
         }
         else if (transform.position.x > Screen.width / 2 +3)
         {
-            Vector3 newpos = new Vector3(-160, 0, 0);
+            Vector3 newpos = new Vector3(-210, 0, 0);
             rt.position = rt.position + (newpos * Time.deltaTime);
         }
         else {

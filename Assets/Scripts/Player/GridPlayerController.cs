@@ -10,6 +10,7 @@ public class GridPlayerController : MonoBehaviour {
     bool caught;
     PlayerState playerState;
     Vector3 destination;
+    
 
     // Use this for initialization
     void Start () {
@@ -49,57 +50,57 @@ public class GridPlayerController : MonoBehaviour {
 
         
         Vector3 target = new Vector3(0,0,0);
+        if ((w || a || s || d) && !moveable) {
 
-        if (w && moveable) {
-            target = new Vector3(0, 0, 1) + target;
+            GameManager.beatsSinceHit++;
+            AudioManager.Instance.PlaySfxMissedBeat();
+            
         }
-        if (a && moveable)
+        if (w && moveable)
+        {
+            target = new Vector3(0, 0, 1) + target;
+            GameManager.beatsSinceHit = 0;
+        }
+        else if (a && moveable)
         {
             target = new Vector3(-1, 0, 0) + target;
+            GameManager.beatsSinceHit = 0;
         }
-        if (s && moveable)
+        else if (s && moveable)
         {
             target = new Vector3(0, 0, -1) + target;
+            GameManager.beatsSinceHit = 0;
         }
-        if (d && moveable)
+        else if (d && moveable)
         {
-            target = new Vector3(1, 0, 0) + target;          
+            target = new Vector3(1, 0, 0) + target;
+            
 
         }
-        RaycastHit hit;
+
+            RaycastHit hit;
         bool lookAhead = Physics.Raycast(transform.position, transform.TransformDirection(target), out hit, 1);
 
 
         // Does the ray intersect any objects excluding the player layer
-        if (lookAhead && hit.transform.tag == "Wall")
+        if (lookAhead && hit.transform.tag != "Wall")
         {
+            target += destination;
+            destination = target;
+            GameManager.beatsSinceHit = 0;
+        }
+        else if (lookAhead && hit.transform.tag == "Wall")
+        {
+            Camera.main.GetComponent<CameraShake>().shakeDuration = 0.05f;
             //play wall hit sound
-        }
-        else if (lookAhead&& hit.transform.tag == "Collectible" )
-        {
-            target += destination;
-            destination = target;
-            //do collect stuff here
             // Destroy(hit.transform.gameObject);
         }
-        else if (lookAhead && hit.transform.tag == "Goal")
-        {
-            target += destination;
-            destination = target;
-            //do goal stuff here stuff here
-            // Destroy(hit.transform.gameObject);
-        }
-        else if (lookAhead && hit.transform.tag == "Ground")
-        {
-            //jump sound and move
-            target += destination;
-            destination = target;
-        }
+
 
         if (transform.position != destination) {
             transform.position = Vector3.Lerp(transform.position, destination, 16.0f * Time.deltaTime);
         }
-        
+        //Debug.Log(GameManager.beatsSinceHit);
 
     }
 

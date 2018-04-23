@@ -23,6 +23,7 @@ public class BeatBarScript : MonoBehaviour {
             left.gameObject.GetComponent<RectTransform>().position = new Vector3(-75, 95, 0);
             right.gameObject.GetComponent<RectTransform>().position = new Vector3(Screen.width+75, 95, 0);
             nextBeat += beatTime;
+            GameManager.beatsSinceHit++;
         }
 	}
 }
