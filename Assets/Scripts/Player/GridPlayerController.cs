@@ -61,18 +61,19 @@ public class GridPlayerController : MonoBehaviour {
         if (w && moveable)
         {
             target = new Vector3(0, 0, 1) + target;
-            GameManager.beatsSinceHit = 0;
-        }
-        else if (a && moveable)
-        {
-            target = new Vector3(-1, 0, 0) + target;
-            GameManager.beatsSinceHit = 0;
+
         }
         else if (s && moveable)
         {
             target = new Vector3(0, 0, -1) + target;
-            GameManager.beatsSinceHit = 0;
+
         }
+        else if (a && moveable)
+        {
+            target = new Vector3(-1, 0, 0) + target;
+
+        }
+        
         else if (d && moveable)
         {
             target = new Vector3(1, 0, 0) + target;
