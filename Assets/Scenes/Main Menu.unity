@@ -275,10 +275,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1280300045145428, guid: 3d2a05a2104fd9b4f9dc3a6f3521c210, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d2a05a2104fd9b4f9dc3a6f3521c210, type: 2}
   m_IsPrefabParent: 0
@@ -334,6 +330,7 @@ GameObject:
   - component: {fileID: 1026729436}
   - component: {fileID: 1026729435}
   - component: {fileID: 1026729434}
+  - component: {fileID: 1026729433}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -341,6 +338,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!81 &1026729433
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1026729432}
+  m_Enabled: 1
 --- !u!124 &1026729434
 Behaviour:
   m_ObjectHideFlags: 0

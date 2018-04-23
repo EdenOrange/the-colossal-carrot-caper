@@ -11,6 +11,7 @@ public class UIMainMenuController : MonoBehaviour {
 	public GameObject menuScreen;
 	public GameObject optionsScreen;
 	public GameObject creditsScreen;
+	public string startButtonScene;
 
 	void Awake()
 	{
@@ -25,6 +26,24 @@ public class UIMainMenuController : MonoBehaviour {
         }
 	}
 
+	void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		if (scene.name == "Main Menu")
+		{
+			mainMenu.SetActive(true);
+		}
+	}
+
 	public void StartButton()
 	{
 		StartCoroutine(StartGame());
@@ -36,7 +55,7 @@ public class UIMainMenuController : MonoBehaviour {
 		UIFaderController.Instance.FadeOut(1f);
 		yield return new WaitForSeconds(1f);
 		mainMenu.SetActive(false);
-		SceneManager.LoadScene("Town");
+		SceneManager.LoadScene(startButtonScene);
 	}
 
 	public void OptionsButton()

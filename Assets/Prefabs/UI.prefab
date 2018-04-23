@@ -159,7 +159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1290136929643436
 GameObject:
   m_ObjectHideFlags: 1
@@ -1240,6 +1240,7 @@ MonoBehaviour:
   menuScreen: {fileID: 1722452249412732}
   optionsScreen: {fileID: 1520833734463842}
   creditsScreen: {fileID: 1605822664662590}
+  startButtonScene: ArtTest 1
 --- !u!114 &114470391491571630
 MonoBehaviour:
   m_ObjectHideFlags: 1

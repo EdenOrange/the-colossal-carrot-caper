@@ -9,16 +9,22 @@ public class EnemyDetectPlayer : MonoBehaviour {
 	private PlayerState playerState;
 	private EnemyState enemyState;
 
+	private int playerLayer;
+	private int wallsLayer;
+	private int layerToDetect;
+
 	void Start()
 	{
 		playerState = GameObject.Find("Player").GetComponent<PlayerState>();
 		enemyState = GetComponent<EnemyState>();
+
+		playerLayer = 1 << LayerMask.NameToLayer("Player");
+		wallsLayer = 1 << LayerMask.NameToLayer("Walls");
+		layerToDetect = playerLayer | wallsLayer;
 	}
 
 	void Update()
 	{
-		int playerLayer = 1 << LayerMask.NameToLayer("Player");
-
 		Vector3 direction = new Vector3(0f, 0f, 0f);
 		switch (enemyState.enemyFacing)
 		{
@@ -37,7 +43,7 @@ public class EnemyDetectPlayer : MonoBehaviour {
 		}
 
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, direction, out hit, distance, playerLayer))
+		if (Physics.Raycast(transform.position, direction, out hit, distance, layerToDetect))
 		{
 			if (hit.transform.tag == "Player")
 			{

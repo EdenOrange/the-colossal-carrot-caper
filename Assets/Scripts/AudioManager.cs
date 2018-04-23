@@ -7,11 +7,11 @@ public class AudioManager : MonoBehaviour {
 
 	public static AudioManager Instance { get; private set; }
 
-	// public AudioClip bgm;
+	public AudioClip bgmMainMenu;
 	public AudioClip sfxCarrotEat;
     public AudioClip sfxMissedBeat;
 
-    // private AudioSource audioBgm;
+    private AudioSource audioBgmMainMenu;
     private AudioSource audioCarrotEat;
     private AudioSource audioMissedBeat;
     public AudioSource LastBGM { get; private set; }
@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour {
 
 		AudioListener.volume = defaultGlobalVolume;
 
-		// audioBgm = AddAudio(bgm, true, false, 1f);
+		audioBgmMainMenu = AddAudio(bgmMainMenu, true, false, 1f);
 		audioCarrotEat = AddAudio(sfxCarrotEat, false, false, 1f);
         audioMissedBeat = AddAudio(sfxMissedBeat, false, false, 1f);
     }
@@ -51,7 +51,10 @@ public class AudioManager : MonoBehaviour {
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		StopBGM();
-		PlayBGM();
+		if (scene.name == "Main Menu")
+		{
+			PlayBGM();
+		}
 	}
 
 	AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float volume)
@@ -66,8 +69,8 @@ public class AudioManager : MonoBehaviour {
 
 	public void PlayBGM()
 	{
-		// audioBgm.Play();
-		// LastBGM = audioBgm;
+		audioBgmMainMenu.Play();
+		LastBGM = audioBgmMainMenu;
 	}
 
 	public void StopBGM()

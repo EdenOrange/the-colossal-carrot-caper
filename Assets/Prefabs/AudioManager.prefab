@@ -51,4 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1015c26a37d47e49a6780ae4c1296ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmMainMenu: {fileID: 8300000, guid: f8f4538805d499c4b9b9d1c32c21f592, type: 3}
   sfxCarrotEat: {fileID: 8300000, guid: 191b0d2f5d752c34e9e5099247a8ec9d, type: 3}
+  sfxMissedBeat: {fileID: 8300000, guid: 34a59bf4f932df749a70de98e3aefbf8, type: 3}

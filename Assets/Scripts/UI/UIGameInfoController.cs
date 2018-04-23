@@ -46,6 +46,8 @@ public class UIGameInfoController : MonoBehaviour {
 		if (Regex.Match(scene.name, @"\d$").Success)
 		{
 			gameInfo.SetActive(true);
+			goal = null;
+			playerState = null;
 		}
 		else
 		{
@@ -53,14 +55,22 @@ public class UIGameInfoController : MonoBehaviour {
 		}
 	}
 
-	void Start()
-	{
-		goal = GameObject.Find("Goal").GetComponent<Goal>();
-		playerState = GameObject.Find("Player").GetComponent<PlayerState>();
-	}
-
 	void Update()
 	{
+		if (!gameInfo.activeInHierarchy)
+		{
+			return;
+		}
+		
+		if (goal == null)
+		{
+			goal = GameObject.Find("Goal").GetComponent<Goal>();
+		}
+		if (playerState == null)
+		{
+			playerState = GameObject.Find("Player").GetComponent<PlayerState>();
+		}
+		
 		carrotsGoal = goal.carrotsNeeded;
 		carrotsPlayer = playerState.carrots;
 		carrotsNeededAmountText.text = (Mathf.Max((carrotsGoal - carrotsPlayer), 0)).ToString();
