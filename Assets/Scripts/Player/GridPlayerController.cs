@@ -100,7 +100,11 @@ public class GridPlayerController : MonoBehaviour {
         if (transform.position != destination) {
             transform.position = Vector3.Lerp(transform.position, destination, 16.0f * Time.deltaTime);
         }
-        //Debug.Log(GameManager.beatsSinceHit);
+
+
+        if (GameManager.beatsSinceHit > 15) {
+            GameManager.Instance.Lose();
+        }
 
     }
 
