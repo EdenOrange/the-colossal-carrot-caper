@@ -12,14 +12,14 @@ public class BeatScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Debug.Log(rt.position.x);
-        if (rt.position.x < Screen.width / 2 - 3)
+        if (rt.position.x < Screen.width / 2 - 4)
         {
             Vector3 newpos = new Vector3(210, 0, 0);
             rt.position = rt.position + (newpos * Time.deltaTime) ;
             
 
         }
-        else if (transform.position.x > Screen.width / 2 +3)
+        else if (transform.position.x > Screen.width / 2 +4)
         {
             Vector3 newpos = new Vector3(-210, 0, 0);
             rt.position = rt.position + (newpos * Time.deltaTime);
