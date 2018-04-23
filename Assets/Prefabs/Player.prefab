@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65584120915660066}
   - component: {fileID: 23421591214852734}
   - component: {fileID: 114725669584360802}
+  - component: {fileID: 114407058054982154}
   - component: {fileID: 114044146361060856}
   - component: {fileID: 82075736669687904}
   - component: {fileID: 54203627170884630}
@@ -210,6 +211,19 @@ MonoBehaviour:
   carrots: 0
   goal: 0
   caught: 0
+--- !u!114 &114407058054982154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1223740148421990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75120aa446fad241abdb62cca248437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hit: {fileID: 0}
+  miss: {fileID: 0}
 --- !u!114 &114434878861409006
 MonoBehaviour:
   m_ObjectHideFlags: 1
