@@ -93,7 +93,7 @@ public class GridPlayerController : MonoBehaviour {
         }
         else if (lookAhead && hit.transform.tag == "Wall")
         {
-            Camera.main.GetComponent<CameraShake>().shakeDuration = 0.05f;
+            Camera.main.GetComponent<CameraShake>().shakeDuration = 0.2f;
             //play wall hit sound
             // Destroy(hit.transform.gameObject);
         }
