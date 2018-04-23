@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour {
 
 	public int carrots;
-	public bool goal;
+    public int carrotsNeeded;
+    public bool goal;
 	public bool caught;
 
 	void Start()
 	{
 		carrots = 0;
-		goal = false;
+        carrotsNeeded = 12;
+        goal = false;
 		caught = false;
 	}
 
@@ -30,4 +32,14 @@ public class PlayerState : MonoBehaviour {
 			caught = true;
 		}
 	}
+    public void Update() {
+        if (carrots >= carrotsNeeded)
+        {
+            goal = true;
+            GameManager.Instance.Goal("Level Select");
+        }
+    }
+
+
+
 }
