@@ -25,7 +25,6 @@ public class EnemyMovement : MonoBehaviour {
 	public Material enemyLeft;
 	public Material enemyRight;
 	private MeshRenderer meshRenderer;
-    Vector3 destination;
     
 	void Start()
 	{
@@ -70,17 +69,24 @@ public class EnemyMovement : MonoBehaviour {
 			target = targetPoints[currentTargetIdx];
 		}
 
-        transform.position = NextMoveToTarget(target);
+        // transform.position = NextMoveToTarget(target);
 
         //doesnt work.
-        //destination = NextMoveToTarget(target);
-        //if (transform.position != destination)
-        //{
-            
-        //    transform.position = Vector3.Lerp(transform.position, destination, 16f * Time.deltaTime);
-        //}
-        
+        // Vector3 destination = NextMoveToTarget(target);
+		StartCoroutine(MoveWithLerp(NextMoveToTarget(target)));
     }
+
+	IEnumerator MoveWithLerp(Vector3 destination)
+	{
+		float progress = 0f;
+		while (progress < 1f)
+		{
+			transform.position = Vector3.Lerp(transform.position, destination, progress);
+			progress += Time.deltaTime * 10;
+			yield return null;
+		}
+		transform.position = destination;
+	}
 
 	void CatchPlayerCheck()
 	{

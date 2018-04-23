@@ -192,7 +192,7 @@ MonoBehaviour:
   - {x: 7, y: 0, z: 6}
   detected: 0
   player: {fileID: 0}
-  moveDelay: 0.5
+  moveDelay: 0.6896552
   enemyUp: {fileID: 2100000, guid: 9a0168939293f5e4d8db7d6ba26af08b, type: 2}
   enemyDown: {fileID: 2100000, guid: 74e27dde022aa2345a68161c7fba737b, type: 2}
   enemyLeft: {fileID: 2100000, guid: fa1d7ecdad027ef46bca1565f49c85c3, type: 2}
