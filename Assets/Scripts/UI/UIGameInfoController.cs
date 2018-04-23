@@ -43,7 +43,7 @@ public class UIGameInfoController : MonoBehaviour {
 
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (Regex.Match(scene.name, @"\d$").Success)
+		if (scene.name != "Main Menu" && scene.name != "Level Select")
 		{
 			gameInfo.SetActive(true);
 			goal = null;
@@ -62,16 +62,12 @@ public class UIGameInfoController : MonoBehaviour {
 			return;
 		}
 		
-		if (goal == null)
-		{
-			goal = GameObject.Find("Goal").GetComponent<Goal>();
-		}
 		if (playerState == null)
 		{
 			playerState = GameObject.Find("Player").GetComponent<PlayerState>();
 		}
 		
-		carrotsGoal = goal.carrotsNeeded;
+		carrotsGoal = playerState.carrotsNeeded;
 		carrotsPlayer = playerState.carrots;
 		carrotsNeededAmountText.text = (Mathf.Max((carrotsGoal - carrotsPlayer), 0)).ToString();
 	}
