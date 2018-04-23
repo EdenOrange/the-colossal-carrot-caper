@@ -47,18 +47,12 @@ public class EnemyMovement : MonoBehaviour {
 		if (moveTimer >= moveDelay && !playerState.goal)
 		{
 			Move();
-			CatchPlayerCheck();
 			moveTimer = 0;
 		}
 	}
 
 	void Move()
 	{
-		if (transform.position == targetPoints[currentTargetIdx])
-		{
-			currentTargetIdx = (currentTargetIdx + 1) % targetPoints.Count;
-		}
-
 		Vector3 target;
 		if (detected && player != null)
 		{
@@ -66,13 +60,20 @@ public class EnemyMovement : MonoBehaviour {
 		}
 		else
 		{
+			/* If there are no more than 1 patrol point, it doesnt need to move */
+			if (targetPoints.Count <= 1)
+			{
+				return;
+			}
+
+			/* Increment target index when the target point has been reached */
+			if (transform.position == targetPoints[currentTargetIdx])
+			{
+				currentTargetIdx = (currentTargetIdx + 1) % targetPoints.Count;
+			}
 			target = targetPoints[currentTargetIdx];
 		}
 
-        // transform.position = NextMoveToTarget(target);
-
-        //doesnt work.
-        // Vector3 destination = NextMoveToTarget(target);
 		StartCoroutine(MoveWithLerp(NextMoveToTarget(target)));
     }
 
@@ -88,11 +89,13 @@ public class EnemyMovement : MonoBehaviour {
 		transform.position = destination;
 	}
 
-	void CatchPlayerCheck()
+	void OnTriggerEnter(Collider collider)
 	{
-		if (player.transform.position == transform.position) {
-			player.GetComponent<GridPlayerController>().CaughtByEnemy();
-        }
+		if (collider.transform.tag == "Player")
+		{
+			playerState.Caught();
+			detected = false;
+		}
 	}
 
 	/* Rotate according to move direction */

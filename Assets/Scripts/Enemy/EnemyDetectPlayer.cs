@@ -6,10 +6,12 @@ public class EnemyDetectPlayer : MonoBehaviour {
 
 	public float distance;
 
+	private PlayerState playerState;
 	private EnemyState enemyState;
 
 	void Start()
 	{
+		playerState = GameObject.Find("Player").GetComponent<PlayerState>();
 		enemyState = GetComponent<EnemyState>();
 	}
 
@@ -39,7 +41,10 @@ public class EnemyDetectPlayer : MonoBehaviour {
 		{
 			if (hit.transform.tag == "Player")
 			{
-                gameObject.GetComponent<EnemyMovement>().detected = true;
+				if (!playerState.caught)
+				{
+					gameObject.GetComponent<EnemyMovement>().detected = true;
+				}
 			}
 		}
 	}

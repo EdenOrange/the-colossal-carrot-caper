@@ -7,7 +7,6 @@ using UnityEngine;
 public class GridPlayerController : MonoBehaviour {
     float timer = 0;
     AudioSource song;
-    bool caught;
     bool started = false;
     PlayerState playerState;
     Vector3 destination;
@@ -17,7 +16,6 @@ public class GridPlayerController : MonoBehaviour {
     void Start () {
         song = gameObject.GetComponent<AudioSource>();
         song.Play();
-        caught = false;
         playerState = GetComponent<PlayerState>();
 
         destination = gameObject.transform.position;
@@ -100,7 +98,7 @@ public class GridPlayerController : MonoBehaviour {
 
 
         if (transform.position != destination) {
-            transform.position = Vector3.Lerp(transform.position, destination, 16.0f * Time.deltaTime);
+            StartCoroutine(MoveWithLerp(destination));
         }
         if (!started) {
             GameManager.beatsSinceHit = 0;
@@ -110,15 +108,17 @@ public class GridPlayerController : MonoBehaviour {
         if (GameManager.beatsSinceHit > 15 && started) {
             GameManager.Instance.Lose();
         }
-
     }
 
-    public void CaughtByEnemy()
-    {
-        if (!caught)
-       {
-            GameManager.Instance.Lose();
-       }
-        caught = true;
-    }
+    IEnumerator MoveWithLerp(Vector3 destination)
+	{
+		float progress = 0f;
+		while (progress < 1f)
+		{
+			transform.position = Vector3.Lerp(transform.position, destination, progress);
+			progress += Time.deltaTime * 10;
+			yield return null;
+		}
+		transform.position = destination;
+	}
 }
