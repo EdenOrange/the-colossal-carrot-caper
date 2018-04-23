@@ -6,13 +6,10 @@ using UnityEngine.UI;
 public class BeatFadeController : MonoBehaviour {
     Image fade;
     float fadeVal;
-
-
 	// Use this for initialization
 	void Start () {
         fade = gameObject.GetComponent<Image>();
-
-    }
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -30,11 +27,4 @@ public class BeatFadeController : MonoBehaviour {
             fade.color = c;
         }
 	}
-
-    public void HitBeat() {
-        GameManager.beatsSinceHit = 0;
-    }
-    public void MissBeat() {
-        GameManager.beatsSinceHit = 1;
-    }
 }

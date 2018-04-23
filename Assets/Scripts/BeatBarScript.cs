@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BeatBarScript : MonoBehaviour {
     public float beatTime = 0.66667f;
@@ -9,9 +8,6 @@ public class BeatBarScript : MonoBehaviour {
     float currentTime = 0f;
     float nextBeat = 0f;
     public GameObject canvas;
-    int beats = 0;
-
-
 	// Use this for initialization
 	void Start () {
         beatTime = 0.6667f;
@@ -29,14 +25,5 @@ public class BeatBarScript : MonoBehaviour {
             nextBeat += beatTime;
             GameManager.beatsSinceHit++;
         }
-
-
 	}
-
-    void UpdateBeats()
-    {
-
-
-    }
-
 }
