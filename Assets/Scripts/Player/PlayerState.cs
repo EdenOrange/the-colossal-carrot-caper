@@ -33,7 +33,7 @@ public class PlayerState : MonoBehaviour {
 		}
 	}
     public void Update() {
-        if (carrots >= carrotsNeeded)
+        if (carrots >= carrotsNeeded && !goal)
         {
             goal = true;
             GameManager.Instance.Goal("Main Menu");
