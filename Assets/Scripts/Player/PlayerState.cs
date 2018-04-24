@@ -36,7 +36,7 @@ public class PlayerState : MonoBehaviour {
         if (carrots >= carrotsNeeded)
         {
             goal = true;
-            GameManager.Instance.Goal("Level Select");
+            GameManager.Instance.Goal("Main Menu");
         }
     }
 
