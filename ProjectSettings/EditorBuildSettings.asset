@@ -20,9 +20,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ArtTest 1.unity
     guid: c0d3f7c3825ac65409750d4ef3b1d208
-  - enabled: 1
-    path: Assets/Scenes/Level 02.unity
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/df4ca1053ef544e488fb3259068ccd75
     guid: df4ca1053ef544e488fb3259068ccd75
   - enabled: 1
     path: Assets/Scenes/Level 01.unity
     guid: ff00cffc7e68aee4d929ea8ae0e514ed
+  - enabled: 1
+    path: Assets/Scenes/Level 02.unity
+    guid: eb68d89da4ac4aa42a2666ef75377032

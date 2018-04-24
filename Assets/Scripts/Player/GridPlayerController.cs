@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 public class GridPlayerController : MonoBehaviour {
-    float timer = 0.15f;
+    float timer = -0.2f;
     AudioSource song;
     bool started = false;
     PlayerState playerState;
