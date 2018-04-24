@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 public class GridPlayerController : MonoBehaviour {
-    float timer = 0f;
+    float timer = 0.15f;
     AudioSource song;
     bool started = false;
     PlayerState playerState;
@@ -27,7 +27,7 @@ public class GridPlayerController : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         float currentTime = ((timer ) % 0.6667f);
-        bool moveable = currentTime < 0.17f || currentTime > 0.50f;
+        bool moveable = currentTime < 0.13f || currentTime > 0.47f;
 
         if (currentTime <= 0.01f)
         {
