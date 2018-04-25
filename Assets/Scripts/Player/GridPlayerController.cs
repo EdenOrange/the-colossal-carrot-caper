@@ -58,26 +58,26 @@ public class GridPlayerController : MonoBehaviour {
             bc.missBeat();
 
         }
-        if (w && moveable)
+        if (w && moveable && !hasHit)
         {
             target = new Vector3(0, 0, 1) + target;
-
+            hasHit = true;
         }
-        else if (s && moveable)
+        else if (s && moveable && !hasHit)
         {
             target = new Vector3(0, 0, -1) + target;
-
+            hasHit = true;
         }
-        else if (a && moveable)
+        else if (a && moveable && !hasHit)
         {
             target = new Vector3(-1, 0, 0) + target;
-
+            hasHit = true;
         }
         
-        else if (d && moveable)
+        else if (d && moveable && !hasHit)
         {
             target = new Vector3(1, 0, 0) + target;
-            
+            hasHit = true;
 
         }
 
