@@ -26,7 +26,7 @@ public class GridPlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
-        float currentTime = ((timer ) % 0.6667f);
+        float currentTime = ((timer ) % (60/88f));
         bool moveable = currentTime < 0.13f || currentTime > 0.47f;
 
         if (currentTime <= 0.01f)

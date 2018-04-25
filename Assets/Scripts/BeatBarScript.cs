@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BeatBarScript : MonoBehaviour {
-    public float beatTime = 0.66667f;
+    public float beatTime = 60/88f;
     public Transform beatTick;
     float currentTime = 0f;
     float nextBeat = 0f;
@@ -11,7 +11,7 @@ public class BeatBarScript : MonoBehaviour {
     public GameObject canvas;
 	// Use this for initialization
 	void Start () {
-        beatTime = 0.6667f;
+        beatTime = 60/88f;
         TickHolder = GameObject.Find("TickHolder");
 	}
 	
